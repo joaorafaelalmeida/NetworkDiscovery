@@ -1,0 +1,18 @@
+package UserInterface;
+
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+
+public class Controller 
+{
+	public JPanel addNewLine(JPanel matrixPanel)
+	{
+		
+		
+		return matrixPanel;
+	}
+
+}

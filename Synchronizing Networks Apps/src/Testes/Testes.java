@@ -1,62 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Testes;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Scanner;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-/**
- *
- * @author Rafael
- */
-public class Testes {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 
-    private static Scanner in = new Scanner(System.in);
-    public static void main(String[] args) throws UnknownHostException, SocketException, IOException 
-    {
-        System.out.println("Introduza o endereço ip de destino: ");
-        String ip = in.nextLine();
-        while(true)
-        {
-            System.out.println("Mensagem a enviar: ");
-            String msg = in.nextLine();
+public class testes extends JFrame {
 
-            //Sender
-            byte[] buffer = msg.getBytes();
-            InetAddress address = InetAddress.getByName(ip);
-            DatagramPacket packet = new DatagramPacket(
-                    buffer, buffer.length, address, 5000
-                    );
-            DatagramSocket datagramSocket = new DatagramSocket();
-            datagramSocket.send(packet);
+	private JPanel contentPane;
+	private JTextField textField;
 
-            //Receiver
-            try
-            {
-                DatagramSocket serverSocket = new DatagramSocket(5000);
-                byte[] receiveData = new byte[8];
-                String sentence = "";
-                while(sentence.length() >0)
-                {
-                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                    serverSocket.receive(receivePacket);
-                    sentence = new String( receivePacket.getData());
-                    System.out.println(sentence);
-                }
-            }
-            catch (Exception e)
-            {
-                System.err.println(e);
-            }
-        }
-    }
-    
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					testes frame = new testes();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public testes() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		textField = new JTextField();
+		contentPane.add(textField, BorderLayout.WEST);
+		textField.setColumns(10);
+	}
+
 }

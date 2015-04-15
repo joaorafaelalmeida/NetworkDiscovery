@@ -1,0 +1,23 @@
+package UserInterface;
+
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+
+public class Controller 
+{
+	public JPanel addNewLine(JPanel matrixPanel)
+	{
+		matrixPanel.setLayout(new GridLayout(2, 2));
+		matrixPanel.add(new JButton("Button"));
+		matrixPanel.add(new JButton("Button"));
+		matrixPanel.add(new JButton("Button"));
+		matrixPanel.add(new JButton("Button"));
+		matrixPanel.revalidate();
+		
+		return matrixPanel;
+	}
+
+}
