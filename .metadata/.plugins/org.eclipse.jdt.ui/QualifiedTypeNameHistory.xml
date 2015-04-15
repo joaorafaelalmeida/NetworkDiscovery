@@ -11,9 +11,12 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="Entities.Device"/>
 <fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
-<fullyQualifiedTypeName name="UserInterface.ControllerFile"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="java.awt.Component"/>
+<fullyQualifiedTypeName name="Entities.Neighbour"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="UserInterface.ValidationFunctions"/>
+<fullyQualifiedTypeName name="UserInterface.ControllerFile"/>
 </qualifiedTypeNameHistroy>

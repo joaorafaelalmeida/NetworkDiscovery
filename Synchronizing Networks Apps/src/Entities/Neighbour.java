@@ -32,6 +32,14 @@ public class Neighbour
 	{
 		this.distance = distance;
 	}
+
+	@Override
+	public String toString() 
+	{
+		return "Neighbour [deviceName=" + deviceName + ", distance=" + distance
+				+ "]";
+	}
+	
 	
 	
 	

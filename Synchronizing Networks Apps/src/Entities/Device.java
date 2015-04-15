@@ -28,6 +28,29 @@ public class Device
 	{
 		return neighbours;
 	}
+	
+	public double lookForDistanceByNeighbourName(String name)
+	{
+		for(Neighbour tmp: neighbours)
+			if(tmp.getDeviceName().equals(name))
+				return tmp.getDistance();
+		return -1;
+	}
+
+	@Override
+	public String toString() 
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("Device: deviceName=");
+		sb.append(deviceName);
+		sb.append(", neighbours=\n");
+		for(Neighbour myNeighbours: neighbours)
+		{
+			sb.append(myNeighbours);
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 
 	
 	

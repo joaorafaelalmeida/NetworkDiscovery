@@ -1,0 +1,39 @@
+package UserInterface;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import Entities.Device;
+
+public class MatrixFile 
+{
+	private List<Device> devicesList;
+	
+	public MatrixFile(List<Device> devicesList) 
+	{
+		this.devicesList = devicesList;
+	}
+	
+	public void saveInFile(String absolutePath) 
+	{
+		File file = new File(absolutePath+"/SNAMatrix.txt");
+		FileOutputStream fos; 
+		try
+		{
+			fos = new FileOutputStream(file);
+			fos.write("Synchronizing Networks Apps Matrix".getBytes());
+			fos.write(System.getProperty("line.separator").getBytes());
+			
+			fos.write(("number of diveces:" + devicesList.size()).getBytes());
+			
+			fos.close();
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+}
