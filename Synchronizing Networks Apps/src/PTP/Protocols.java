@@ -1,0 +1,44 @@
+package PTP;
+
+public class Protocols 
+{
+	/**
+	 * Protocolos que iremos usar, nao tem argumentos e nao retornam nada por agora
+	 * depois possivelmente vao ser alterados
+	 * */
+	public void Sync()
+	{
+		/**
+		 * Pacote enviado pelo mestre, vai conter apenas o id de sessão e o seu endereço ip
+		 * */
+	}
+	
+	public void SendTimeSync()
+	{
+		/**
+		 * Pacote enviado pelo mestre, vai conter o id de sessao e o hora de envio do sync
+		 * */
+	}
+	
+	public void DelayRequest()
+	{
+		/**
+		 * Enviado pelos slaves, vai conter o id de sessao, ip e nome(talvez)
+		 * */
+	}
+	
+	public void DelayResponse()
+	{
+		/**
+		 * Enviado pelo mestre, vai conter o id de sessao, e a hora de receção do delayrequest
+		 * */
+	}
+	
+	public void TimeOk()
+	{
+		/**
+		 * Enviado pelo mestre quando o espaço temporal é aceitavel, vai conter o id de sessao e ok 
+		 * */
+	}
+	
+}

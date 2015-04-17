@@ -1,0 +1,58 @@
+package Entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Device 
+{
+	private final String deviceName;
+	private List<Neighbour> neighbours;
+	
+	public Device(String deviceName)
+	{
+		this.deviceName = deviceName;
+		neighbours = new ArrayList<>();
+	}
+	
+	public void addNewNeighbour(Neighbour neighbour)
+	{
+		neighbours.add(neighbour);
+	}
+
+	public String getDeviceName() 
+	{
+		return deviceName;
+	}
+
+	public List<Neighbour> getNeighbours() 
+	{
+		return neighbours;
+	}
+	
+	public double lookForDistanceByNeighbourName(String name)
+	{
+		for(Neighbour tmp: neighbours)
+			if(tmp.getDeviceName().equals(name))
+				return tmp.getDistance();
+		return -1;
+	}
+
+	@Override
+	public String toString() 
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("Device: deviceName=");
+		sb.append(deviceName);
+		sb.append(", neighbours=\n");
+		for(Neighbour myNeighbours: neighbours)
+		{
+			sb.append(myNeighbours);
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	
+	
+	
+}

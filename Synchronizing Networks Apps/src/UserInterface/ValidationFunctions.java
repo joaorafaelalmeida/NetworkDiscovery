@@ -2,7 +2,7 @@ package UserInterface;
 
 import java.util.List;
 
-import Entities.Device;
+import Entities.*;
 
 
 public class ValidationFunctions 
@@ -30,6 +30,14 @@ public class ValidationFunctions
 	public static boolean existsDevice(List<Device> list, String text)
 	{
 		for(Device tmp: list)
+			if(tmp.getDeviceName().equals(text))
+				return true;
+		return false;
+	}
+	
+	public static boolean existsNeighbour(List<Neighbour> list, String text)
+	{
+		for(Neighbour tmp: list)
 			if(tmp.getDeviceName().equals(text))
 				return true;
 		return false;

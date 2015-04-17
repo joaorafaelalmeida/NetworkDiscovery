@@ -1,0 +1,7 @@
+package PTP;
+
+public interface ProtocolsInterface 
+{
+	
+
+}

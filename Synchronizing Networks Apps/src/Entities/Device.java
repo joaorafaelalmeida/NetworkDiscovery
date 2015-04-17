@@ -37,6 +37,20 @@ public class Device
 		return -1;
 	}
 
+	public void setDistanceToNeighbourByName(String name, double distance)
+	{
+		for(Neighbour tmp: neighbours)
+			if(tmp.getDeviceName().equals(name))
+				tmp.setDistance(distance);
+	}
+	
+	public void removeNeighbour(String name)
+	{
+		for(int i = 0; i < neighbours.size(); i++)
+			if(neighbours.get(i).getDeviceName().equals(name))
+				neighbours.remove(i);
+	}
+	
 	@Override
 	public String toString() 
 	{

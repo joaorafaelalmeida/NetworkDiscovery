@@ -25,6 +25,9 @@ import javax.swing.ImageIcon;
 
 import Entities.Device;
 import Entities.Neighbour;
+import Matrix.ControllerMatrix;
+import Matrix.ExportMatrix;
+import Matrix.ImportMatrix;
 
 public class GraphicInterface 
 {
@@ -32,6 +35,7 @@ public class GraphicInterface
 	private int row;
 	private List<Device> devicesList;
 	private JTextField newDeviceJTextField;
+	private JTextField ipMulticastAddressJTextField;
 
 	public JFrame getFrame()
 	{
@@ -53,6 +57,7 @@ public class GraphicInterface
 	 */
 	private void initialize() 
 	{				
+		ControllerInterface control = new ControllerInterface();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 420);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,6 +113,15 @@ public class GraphicInterface
 		JButton deleteDeviceButton = new JButton("Delete device");
 		deleteDeviceButton.setBounds(10, 314, 151, 23);
 		applicaitonPanel.add(deleteDeviceButton);
+		
+		ipMulticastAddressJTextField = new JTextField();
+		ipMulticastAddressJTextField.setColumns(10);
+		ipMulticastAddressJTextField.setBounds(423, 65, 151, 23);
+		applicaitonPanel.add(ipMulticastAddressJTextField);
+		
+		JLabel ipMulticastAdressLabel = new JLabel("IP Multicast Address");
+		ipMulticastAdressLabel.setBounds(310, 69, 103, 14);
+		applicaitonPanel.add(ipMulticastAdressLabel);
 
 		
 		/** 
@@ -126,21 +140,7 @@ public class GraphicInterface
 					devicesList.add(new Device(newDeviceJTextField.getText()));
 					
 					row ++;
-					matrixPanel.setLayout(new GridLayout(row, row));
-					for(int i = 0; i<row; i++)
-						if(i==0)
-							matrixPanel.add(new JButton(""));
-						else
-							matrixPanel.add(new JButton(devicesList.get(i-1).getDeviceName()));
-					
-					for(int j = 1; j<row; j++)
-						for(int i = 0; i<row; i++)
-						{
-							if(i == 0)
-								matrixPanel.add(new JButton(devicesList.get(j-1).getDeviceName()));
-							else
-								matrixPanel.add(new JTextField());
-						}
+					control.reloadMatrix(matrixPanel, row, devicesList);
 					
 					newDeviceJTextField.setText("");
 					matrixPanel.revalidate();
@@ -160,28 +160,11 @@ public class GraphicInterface
 					matrixPanel.removeAll(); 
 					
 					devicesList.remove(ValidationFunctions.getIndexFromList(devicesList, newDeviceJTextField.getText()));
+					//Remover em todos os visinhos o dispositivo
+					ControllerMatrix.removeNeighbourFromAllNeighbourList(devicesList, newDeviceJTextField.getText());
 					
 					row --;
-					matrixPanel.setLayout(new GridLayout(row, row));
-					for(int i = 0; i<row; i++)
-						if(i==0)
-							matrixPanel.add(new JButton(""));
-						else
-							matrixPanel.add(new JButton(devicesList.get(i-1).getDeviceName()));
-					
-					for(int j = 1; j<row; j++)
-						for(int i = 0; i<row; i++)
-						{
-							if(i == 0)
-								matrixPanel.add(new JButton(devicesList.get(j-1).getDeviceName()));
-							else
-							{
-								JTextField textField = new JTextField();
-								matrixPanel.add(textField);
-								if(i==j)//VER PORQUE NAO FUNCIONA
-									textField.setEnabled(false);
-							}
-						}
+					control.reloadMatrix(matrixPanel, row, devicesList);
 					
 					newDeviceJTextField.setText("");
 					matrixPanel.revalidate();
@@ -201,9 +184,9 @@ public class GraphicInterface
                 arquivo.showOpenDialog(null);
                 if(arquivo.getSelectedFile() != null)
                 {
-                	if(ExportMatrix.validMatrixInJPanel(matrixPanel, row))
+                	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, row))
                 	{
-                		MatrixFile configFile = new MatrixFile(ExportMatrix.getAllDataFromMatrix(matrixPanel, row));
+                		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, row));
 	                	configFile.saveInFile(arquivo.getSelectedFile().getAbsolutePath());
 	                	JOptionPane.showMessageDialog(frame,"Matrix is saved in file with success!", "Success", JOptionPane.DEFAULT_OPTION);
                 	}
@@ -213,6 +196,44 @@ public class GraphicInterface
 			}
 		});
 		
+		readDataButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				JFileChooser arquivo = new JFileChooser();  
+                arquivo.setDialogTitle("Select a matrix to be readed");
+                arquivo.showOpenDialog(null);
+                if(arquivo.getSelectedFile() != null)
+                {
+                	ImportMatrix impMatrix = new ImportMatrix(arquivo.getSelectedFile());
+                	devicesList = impMatrix.getListOfDevicesFromFile();
+                	row = devicesList.size()+1;
+                	
+                	matrixPanel.removeAll(); 
+					matrixPanel.setLayout(new GridLayout(row, row));
+					for(int i = 0; i<row; i++)
+						if(i==0)
+							matrixPanel.add(new JButton(""));
+						else
+							matrixPanel.add(new JButton(devicesList.get(i-1).getDeviceName()));
+					
+					for(int j = 1; j<row; j++)//Linha
+						for(int i = 0; i<row; i++)//Coluna
+						{
+							if(i == 0)
+								matrixPanel.add(new JButton(devicesList.get(j-1).getDeviceName()));
+							else
+							{
+								String distance = String.valueOf(devicesList.get(j-1).getNeighbours().get(i-1).getDistance());
+								matrixPanel.add(new JTextField(distance));
+							}
+						}
+					
+					newDeviceJTextField.setText("");
+					matrixPanel.revalidate();
+                	
+                }
+			}
+		});
 	}
-	
 }
