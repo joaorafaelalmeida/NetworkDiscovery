@@ -99,7 +99,7 @@ public class GraphicInterface
 		applicaitonPanel.add(measureDelaysButton);
 		
 		JLabel iconLabel = new JLabel("");
-		iconLabel.setIcon(new ImageIcon("routerMascotev3mini mini.png"));
+		iconLabel.setIcon(new ImageIcon("C:\\Universidade\\3\u00BA Ano - 2\u00BA Semestre\\Projecto\\pi-network-discovery\\Synchronizing Networks Apps\\routerMascotev3mini mini.png"));
 		iconLabel.setBounds(10, 11, 150, 96);
 		applicaitonPanel.add(iconLabel);
 		

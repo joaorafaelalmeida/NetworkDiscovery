@@ -27,7 +27,7 @@ public class ImportMatrix
 	public List<Device> getListOfDevicesFromFile()
 	{
 		List<Device> tmp = new ArrayList<>();
-		BufferedReader in;
+		
 		try 
 		{
 			in = new BufferedReader(new FileReader(file));

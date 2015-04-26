@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +100,8 @@ public class GraphicInterface
 		applicaitonPanel.add(measureDelaysButton);
 		
 		JLabel iconLabel = new JLabel("");
-		iconLabel.setIcon(new ImageIcon("routerMascotev3mini mini.png"));
+		URL url = getClass().getResource("routerMascotev3mini mini.png");
+		iconLabel.setIcon(new ImageIcon(url.getPath()));
 		iconLabel.setBounds(10, 11, 150, 96);
 		applicaitonPanel.add(iconLabel);
 		
