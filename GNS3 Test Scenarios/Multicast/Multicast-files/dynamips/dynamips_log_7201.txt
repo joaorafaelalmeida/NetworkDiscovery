@@ -1,0 +1,58 @@
+Apr 22 11:28:06.652 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Apr 22 11:28:06.652 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7201.
+Apr 22 11:28:07.120 HYPERVISOR: exec_cmd: hypervisor version 
+Apr 22 11:28:07.120 HYPERVISOR: exec_cmd: hypervisor uuid 
+Apr 22 11:28:07.120 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips 
+Apr 22 11:28:07.120 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips
+Apr 22 11:28:07.120 HYPERVISOR: exec_cmd: vm create R2 2 c3725 
+Apr 22 11:28:07.136 VM: VM R2 created.
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 2002 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_aux_tcp_port R2 2502 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: c3725 get_mac_addr R2 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_ios R2 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_sparse_mem R2 1 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_ram_mmap R2 1 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Apr 22 11:28:07.136 HYPERVISOR: exec_cmd: vm set_ghost_file R2 c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Apr 22 11:28:08.868 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg 
+Apr 22 11:28:08.883 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Apr 22 11:28:08.883 HYPERVISOR: exec_cmd: vm set_disk0 R2 1 
+Apr 22 11:28:08.883 HYPERVISOR: exec_cmd: vm set_nvram R2 256 
+Apr 22 11:28:08.883 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:28:08.883 HYPERVISOR: exec_cmd: vm set_idle_pc R2 0x611454bc 
+Apr 22 11:47:33.743 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto0 127.0.0.1 10001 20000 
+Apr 22 11:47:33.806 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto0 127.0.0.1 20501 
+Apr 22 11:47:33.806 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 0 0 nio_udp_auto0 
+Apr 22 11:47:33.806 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:48:08.575 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto5 127.0.0.1 10001 20000 
+Apr 22 11:48:08.637 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto5 127.0.0.1 10007 
+Apr 22 11:48:08.637 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 0 1 nio_udp_auto5 
+Apr 22 11:48:08.637 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:49:03.067 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:49:03.067 HYPERVISOR: exec_cmd: vm slot_add_binding R2 1 0 NM-1FE-TX 
+Apr 22 11:49:03.067 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:49:21.151 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto11 127.0.0.1 10001 20000 
+Apr 22 11:49:21.213 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto11 127.0.0.1 10010 
+Apr 22 11:49:21.213 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 1 0 nio_udp_auto11 
+Apr 22 11:49:21.213 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:55:49.688 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 11:55:49.688 HYPERVISOR: exec_cmd: vm start R2 
+Apr 22 11:55:49.704 GHOST: loaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
+Apr 22 11:55:49.704 GHOST: loaded image c3725-advipservicesk9-mz.124-21.image-128.ghost successfully.
+Apr 22 12:29:15.263 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 12:29:15.266 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 12:29:15.267 HYPERVISOR: exec_cmd: vm stop R2 
+Apr 22 12:29:15.360 GHOST: unloaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
+Apr 22 12:29:15.416 VM: VM R2 shutdown.
+Apr 22 12:29:15.417 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 12:29:15.419 HYPERVISOR: exec_cmd: vm start R2 
+Apr 22 12:29:15.578 GHOST: loaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
+Apr 22 12:29:15.578 GHOST: loaded image c3725-advipservicesk9-mz.124-21.image-128.ghost successfully.
+Apr 22 12:30:12.524 HYPERVISOR: exec_cmd: vm get_status R2 
+Apr 22 12:30:12.525 HYPERVISOR: exec_cmd: vm stop R2 
+Apr 22 12:30:12.682 GHOST: unloaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
+Apr 22 12:30:12.769 VM: VM R2 shutdown.
+Apr 22 12:31:35.183 HYPERVISOR: exec_cmd: vm extract_config R2 
+Apr 22 12:31:35.614 HYPERVISOR: Stopped.
+Apr 22 12:31:35.614 VM: VM R2 destroyed.
+Apr 22 12:31:35.785 GENERAL: reset done.

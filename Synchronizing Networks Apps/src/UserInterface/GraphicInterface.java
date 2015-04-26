@@ -36,6 +36,7 @@ public class GraphicInterface
 	private List<Device> devicesList;
 	private JTextField newDeviceJTextField;
 	private JTextField ipMulticastAddressJTextField;
+	private JTextField hostNameTextField;
 
 	public JFrame getFrame()
 	{
@@ -120,8 +121,17 @@ public class GraphicInterface
 		applicaitonPanel.add(ipMulticastAddressJTextField);
 		
 		JLabel ipMulticastAdressLabel = new JLabel("IP Multicast Address");
-		ipMulticastAdressLabel.setBounds(310, 69, 103, 14);
+		ipMulticastAdressLabel.setBounds(262, 69, 151, 14);
 		applicaitonPanel.add(ipMulticastAdressLabel);
+		
+		JLabel hostNameLabel = new JLabel("Host name (optional)");
+		hostNameLabel.setBounds(262, 35, 151, 14);
+		applicaitonPanel.add(hostNameLabel);
+		
+		hostNameTextField = new JTextField();
+		hostNameTextField.setColumns(10);
+		hostNameTextField.setBounds(423, 31, 151, 23);
+		applicaitonPanel.add(hostNameTextField);
 
 		
 		/** 

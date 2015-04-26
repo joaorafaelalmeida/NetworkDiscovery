@@ -1,0 +1,30 @@
+package PTP;
+
+public class PTP implements Runnable
+{
+	private String ipMulticastAddress;
+	private Type type;
+	
+	public PTP (String ipMulticastAddress, Type type)
+	{
+		this.ipMulticastAddress = ipMulticastAddress;
+		this.type = type;
+	}
+
+	@Override
+	public void run() 
+	{
+		if(type.equals(Type.SLAVE))
+		{
+			
+		}
+		
+		if(type.equals(Type.MASTER))
+		{
+			
+		}
+		
+	}
+	
+	
+}

@@ -1,0 +1,102 @@
+!R1
+config terminal
+ip multicast-routing
+int f0/0
+ip addr 10.0.1.1 255.255.255.0
+ip pim sparse-mode
+no shut
+int f0/1
+ip addr 10.0.14.1 255.255.255.0
+ip pim sparse-mode
+no shut
+int f1/0
+ip addr 10.0.12.1 255.255.255.0
+ip pim sparse-mode
+no shut
+end
+write
+!---
+config t
+router OSPF 1
+network 10.0.0.0 0.255.255.255 area 0
+end
+write
+!---
+config t
+ip pim rp-address 10.0.12.1
+end
+write
+
+
+!R2
+config terminal
+ip multicast-routing
+int f0/0
+ip addr 10.0.2.1 255.255.255.0
+ip pim sparse-mode
+no shut
+int f0/1
+ip addr 10.0.23.2 255.255.255.0
+ip pim sparse-mode
+no shut
+int f1/0
+ip addr 10.0.12.2 255.255.255.0
+ip pim sparse-mode
+no shut
+end
+write
+!---
+config t
+router OSPF 1
+network 10.0.0.0 0.255.255.255 area 0
+end
+write
+
+!R3
+config terminal
+ip multicast-routing
+int f0/0
+ip addr 10.0.3.1 255.255.255.0
+ip pim sparse-mode
+no shut
+int f0/1
+ip addr 10.0.23.3 255.255.255.0
+ip pim sparse-mode
+no shut
+int f1/0
+ip addr 10.0.34.3 255.255.255.0
+ip pim sparse-mode
+no shut
+end
+write
+!---
+config t
+router OSPF 1
+network 10.0.0.0 0.255.255.255 area 0
+end
+write
+
+
+!R4
+config terminal
+ip multicast-routing
+int f0/0
+ip addr 10.0.4.1 255.255.255.0
+ip pim sparse-mode
+no shut
+int f0/1
+ip addr 10.0.14.4 255.255.255.0
+ip pim sparse-mode
+no shut
+int f1/0
+ip addr 10.0.34.4 255.255.255.0
+ip pim sparse-mode
+no shut
+end
+write
+!---
+config t
+router OSPF 1
+network 10.0.0.0 0.255.255.255 area 0
+end
+write

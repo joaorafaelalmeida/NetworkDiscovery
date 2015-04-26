@@ -24,4 +24,9 @@
 <fullyQualifiedTypeName name="Matrix.ImportMatrix"/>
 <fullyQualifiedTypeName name="Entities.Neighbour"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="java.net.InetAddress"/>
+<fullyQualifiedTypeName name="java.net.MulticastSocket"/>
+<fullyQualifiedTypeName name="java.net.DatagramPacket"/>
+<fullyQualifiedTypeName name="PTP.PTP"/>
+<fullyQualifiedTypeName name="PTP.Type"/>
 </qualifiedTypeNameHistroy>

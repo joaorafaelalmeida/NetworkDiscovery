@@ -1,0 +1,25 @@
+Apr 22 11:28:09.788 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Apr 22 11:28:09.788 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7205.
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: hypervisor version 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: hypervisor uuid 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips 
+Apr 22 11:28:10.272 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: vm create R6 6 c3725 
+Apr 22 11:28:10.272 VM: VM R6 created.
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: vm set_con_tcp_port R6 2006 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: vm set_aux_tcp_port R6 2506 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: c3725 get_mac_addr R6 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: vm set_ios R6 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
+Apr 22 11:28:10.272 HYPERVISOR: exec_cmd: vm set_sparse_mem R6 1 
+Apr 22 11:28:10.287 HYPERVISOR: exec_cmd: vm set_ram_mmap R6 1 
+Apr 22 11:28:10.287 HYPERVISOR: exec_cmd: vm set_ghost_status R6 2 
+Apr 22 11:28:10.287 HYPERVISOR: exec_cmd: vm set_ghost_file R6 c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Apr 22 11:28:10.428 HYPERVISOR: exec_cmd: vm set_config R6 configs\i6_startup-config.cfg 
+Apr 22 11:28:10.428 HYPERVISOR: exec_cmd: vm set_config R6 configs\i6_startup-config.cfg configs\i6_private-config.cfg 
+Apr 22 11:28:10.443 HYPERVISOR: exec_cmd: vm set_disk0 R6 1 
+Apr 22 11:28:10.443 HYPERVISOR: exec_cmd: vm set_nvram R6 256 
+Apr 22 11:28:10.443 HYPERVISOR: exec_cmd: vm get_status R6 
+Apr 22 11:28:10.443 HYPERVISOR: exec_cmd: vm set_idle_pc R6 0x611454bc 
+Apr 22 11:28:15.513 HYPERVISOR: exec_cmd: vm clean_delete R6 
+Apr 22 11:28:15.513 VM: VM R6 destroyed.
+Apr 22 11:28:15.560 HYPERVISOR: exec_cmd: hypervisor stop 

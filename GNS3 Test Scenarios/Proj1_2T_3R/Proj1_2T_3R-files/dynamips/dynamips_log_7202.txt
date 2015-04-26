@@ -1,34 +1,35 @@
-Apr 13 10:57:23.660 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
-Apr 13 10:57:23.660 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7202.
-Apr 13 10:57:24.113 HYPERVISOR: exec_cmd: hypervisor version 
-Apr 13 10:57:24.113 HYPERVISOR: exec_cmd: hypervisor uuid 
-Apr 13 10:57:24.113 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Proj1_2T_3R\Proj1_2T_3R-files\dynamips 
-Apr 13 10:57:24.113 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Proj1_2T_3R\Proj1_2T_3R-files\dynamips
-Apr 13 10:57:24.113 HYPERVISOR: exec_cmd: vm create Router3 3 c3725 
-Apr 13 10:57:24.144 VM: VM Router3 created.
-Apr 13 10:57:24.144 HYPERVISOR: exec_cmd: vm set_con_tcp_port Router3 2003 
-Apr 13 10:57:24.144 HYPERVISOR: exec_cmd: vm set_aux_tcp_port Router3 2503 
-Apr 13 10:57:24.144 HYPERVISOR: exec_cmd: c3725 get_mac_addr Router3 
-Apr 13 10:57:24.144 HYPERVISOR: exec_cmd: vm set_ios Router3 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
-Apr 13 10:57:24.144 HYPERVISOR: exec_cmd: vm set_sparse_mem Router3 1 
-Apr 13 10:57:24.159 HYPERVISOR: exec_cmd: vm set_ram_mmap Router3 1 
-Apr 13 10:57:24.159 HYPERVISOR: exec_cmd: c3725 set_mac_addr Router3 c203.0c50.0000 
-Apr 13 10:57:24.159 HYPERVISOR: exec_cmd: vm set_ghost_status Router3 2 
-Apr 13 10:57:24.159 HYPERVISOR: exec_cmd: vm set_ghost_file Router3 c3725-advipservicesk9-mz.124-21.image-128.ghost 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm set_config Router3 configs/i3_startup-config.cfg 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm set_config Router3 configs/i3_startup-config.cfg configs/i3_private-config.cfg 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm set_disk0 Router3 1 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm get_status Router3 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm set_idle_pc Router3 0x611454bc 
-Apr 13 10:57:24.393 HYPERVISOR: exec_cmd: vm set_nvram Router3 256 
-Apr 13 10:57:24.456 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto4 127.0.0.1 10001 20000 
-Apr 13 10:57:24.471 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto6 127.0.0.1 10001 20000 
-Apr 13 10:57:24.752 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto4 127.0.0.1 10006 
-Apr 13 10:57:24.752 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Router3 0 0 nio_udp_auto4 
-Apr 13 10:57:24.752 HYPERVISOR: exec_cmd: vm get_status Router3 
-Apr 13 10:57:24.861 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto6 127.0.0.1 10008 
-Apr 13 10:57:24.861 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Router3 0 1 nio_udp_auto6 
-Apr 13 10:57:24.861 HYPERVISOR: exec_cmd: vm get_status Router3 
-Apr 13 11:06:55.839 HYPERVISOR: Stopped.
-Apr 13 11:06:55.839 VM: VM Router3 destroyed.
-Apr 13 11:06:55.869 GENERAL: reset done.
+Apr 21 13:58:40.332 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Apr 21 13:58:40.332 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7202.
+Apr 21 13:58:40.816 HYPERVISOR: exec_cmd: hypervisor version 
+Apr 21 13:58:40.816 HYPERVISOR: exec_cmd: hypervisor uuid 
+Apr 21 13:58:40.816 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Proj1_2T_3R\Proj1_2T_3R-files\dynamips 
+Apr 21 13:58:40.816 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Proj1_2T_3R\Proj1_2T_3R-files\dynamips
+Apr 21 13:58:40.816 HYPERVISOR: exec_cmd: vm create Router3 3 c3725 
+Apr 21 13:58:40.816 VM: VM Router3 created.
+Apr 21 13:58:40.816 HYPERVISOR: exec_cmd: vm set_con_tcp_port Router3 2003 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_aux_tcp_port Router3 2503 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: c3725 get_mac_addr Router3 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_ios Router3 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_sparse_mem Router3 1 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_ram_mmap Router3 1 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: c3725 set_mac_addr Router3 c203.0c50.0000 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_ghost_status Router3 2 
+Apr 21 13:58:40.832 HYPERVISOR: exec_cmd: vm set_ghost_file Router3 c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm set_config Router3 configs/i3_startup-config.cfg 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm set_config Router3 configs/i3_startup-config.cfg configs/i3_private-config.cfg 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm set_disk0 Router3 1 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm set_nvram Router3 256 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm get_status Router3 
+Apr 21 13:58:41.112 HYPERVISOR: exec_cmd: vm set_idle_pc Router3 0x611454bc 
+Apr 21 13:58:41.206 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto4 127.0.0.1 10001 20000 
+Apr 21 13:58:41.222 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto6 127.0.0.1 10001 20000 
+Apr 21 13:58:41.565 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto4 127.0.0.1 10006 
+Apr 21 13:58:41.565 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Router3 0 0 nio_udp_auto4 
+Apr 21 13:58:41.565 HYPERVISOR: exec_cmd: vm get_status Router3 
+Apr 21 13:58:41.705 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto6 127.0.0.1 10008 
+Apr 21 13:58:41.705 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Router3 0 1 nio_udp_auto6 
+Apr 21 13:58:41.705 HYPERVISOR: exec_cmd: vm get_status Router3 
+Apr 21 14:24:28.358 HYPERVISOR: exec_cmd: vm extract_config Router3 
+Apr 21 14:24:28.461 HYPERVISOR: Stopped.
+Apr 21 14:24:28.461 VM: VM Router3 destroyed.
+Apr 21 14:24:28.476 GENERAL: reset done.
