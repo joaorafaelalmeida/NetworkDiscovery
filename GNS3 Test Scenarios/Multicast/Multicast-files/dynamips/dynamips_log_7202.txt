@@ -1,58 +1,48 @@
-Apr 22 11:28:07.214 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
-Apr 22 11:28:07.214 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7202.
-Apr 22 11:28:07.698 HYPERVISOR: exec_cmd: hypervisor version 
-Apr 22 11:28:07.698 HYPERVISOR: exec_cmd: hypervisor uuid 
-Apr 22 11:28:07.698 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips 
-Apr 22 11:28:07.698 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips
-Apr 22 11:28:07.698 HYPERVISOR: exec_cmd: vm create R3 3 c3725 
-Apr 22 11:28:07.885 VM: VM R3 created.
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_con_tcp_port R3 2003 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_aux_tcp_port R3 2503 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: c3725 get_mac_addr R3 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_ios R3 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_sparse_mem R3 1 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_ram_mmap R3 1 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_ghost_status R3 2 
-Apr 22 11:28:07.900 HYPERVISOR: exec_cmd: vm set_ghost_file R3 c3725-advipservicesk9-mz.124-21.image-128.ghost 
-Apr 22 11:28:09.507 HYPERVISOR: exec_cmd: vm set_config R3 configs\i3_startup-config.cfg 
-Apr 22 11:28:09.523 HYPERVISOR: exec_cmd: vm set_config R3 configs\i3_startup-config.cfg configs\i3_private-config.cfg 
-Apr 22 11:28:09.523 HYPERVISOR: exec_cmd: vm set_disk0 R3 1 
-Apr 22 11:28:09.523 HYPERVISOR: exec_cmd: vm set_nvram R3 256 
-Apr 22 11:28:09.523 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 11:28:09.523 HYPERVISOR: exec_cmd: vm set_idle_pc R3 0x611454bc 
-Apr 22 11:47:44.690 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto2 127.0.0.1 10001 20000 
-Apr 22 11:47:44.737 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto2 127.0.0.1 20503 
-Apr 22 11:47:44.737 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 0 nio_udp_auto2 
-Apr 22 11:47:44.737 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 11:48:08.590 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto6 127.0.0.1 10001 20000 
-Apr 22 11:48:08.668 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto6 127.0.0.1 10006 
-Apr 22 11:48:08.668 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 1 nio_udp_auto6 
-Apr 22 11:48:08.668 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 11:49:32.802 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 11:49:32.802 HYPERVISOR: exec_cmd: vm slot_add_binding R3 1 0 NM-1FE-TX 
-Apr 22 11:49:32.802 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 11:49:46.906 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto13 127.0.0.1 10001 20000 
-Apr 22 11:49:46.953 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto13 127.0.0.1 10012 
-Apr 22 11:49:46.953 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 1 0 nio_udp_auto13 
-Apr 22 11:49:46.953 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:01:51.481 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:01:51.481 HYPERVISOR: exec_cmd: vm start R3 
-Apr 22 12:01:51.497 GHOST: loaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
-Apr 22 12:01:51.497 GHOST: loaded image c3725-advipservicesk9-mz.124-21.image-128.ghost successfully.
-Apr 22 12:29:14.535 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:29:14.536 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:29:14.536 HYPERVISOR: exec_cmd: vm stop R3 
-Apr 22 12:29:14.657 GHOST: unloaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
-Apr 22 12:29:14.723 VM: VM R3 shutdown.
-Apr 22 12:29:14.724 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:29:14.727 HYPERVISOR: exec_cmd: vm start R3 
-Apr 22 12:29:14.774 GHOST: loaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
-Apr 22 12:29:14.774 GHOST: loaded image c3725-advipservicesk9-mz.124-21.image-128.ghost successfully.
-Apr 22 12:30:12.274 HYPERVISOR: exec_cmd: vm get_status R3 
-Apr 22 12:30:12.275 HYPERVISOR: exec_cmd: vm stop R3 
-Apr 22 12:30:12.436 GHOST: unloaded ghost image c3725-advipservicesk9-mz.124-21.image-128.ghost (fd=16) at addr=0xedc50000 (size=0x10000000)
-Apr 22 12:30:12.500 VM: VM R3 shutdown.
-Apr 22 12:31:35.235 HYPERVISOR: exec_cmd: vm extract_config R3 
-Apr 22 12:31:35.614 HYPERVISOR: Stopped.
-Apr 22 12:31:35.614 VM: VM R3 destroyed.
-Apr 22 12:31:35.785 GENERAL: reset done.
+Apr 26 22:41:43.368 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Apr 26 22:41:43.369 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 7202.
+Apr 26 22:41:43.819 HYPERVISOR: exec_cmd: hypervisor version 
+Apr 26 22:41:43.820 HYPERVISOR: exec_cmd: hypervisor uuid 
+Apr 26 22:41:43.821 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips 
+Apr 26 22:41:43.822 GENERAL: working_dir=C:/Universidade/3º Ano - 2º Semestre/Projecto/pi-network-discovery/GNS3 Test Scenarios/Multicast\Multicast-files\dynamips
+Apr 26 22:41:43.823 HYPERVISOR: exec_cmd: vm create R3 3 c3725 
+Apr 26 22:41:43.829 VM: VM R3 created.
+Apr 26 22:41:43.831 HYPERVISOR: exec_cmd: vm set_con_tcp_port R3 2003 
+Apr 26 22:41:43.832 HYPERVISOR: exec_cmd: vm set_aux_tcp_port R3 2503 
+Apr 26 22:41:43.833 HYPERVISOR: exec_cmd: c3725 get_mac_addr R3 
+Apr 26 22:41:43.833 HYPERVISOR: exec_cmd: vm set_ios R3 C:\Users\Rafael\GNS3\images\IOS\c3725-advipservicesk9-mz.124-21.image 
+Apr 26 22:41:43.834 HYPERVISOR: exec_cmd: vm set_sparse_mem R3 1 
+Apr 26 22:41:43.834 HYPERVISOR: exec_cmd: vm set_ram_mmap R3 1 
+Apr 26 22:41:43.834 HYPERVISOR: exec_cmd: c3725 set_mac_addr R3 c203.0224.0000 
+Apr 26 22:41:43.835 HYPERVISOR: exec_cmd: vm set_ghost_status R3 2 
+Apr 26 22:41:43.835 HYPERVISOR: exec_cmd: vm set_ghost_file R3 c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Apr 26 22:41:45.759 HYPERVISOR: exec_cmd: vm set_config R3 configs/i3_startup-config.cfg 
+Apr 26 22:41:45.760 HYPERVISOR: exec_cmd: vm set_config R3 configs/i3_startup-config.cfg configs/i3_private-config.cfg 
+Apr 26 22:41:45.761 HYPERVISOR: exec_cmd: vm set_nvram R3 256 
+Apr 26 22:41:45.761 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:41:45.761 HYPERVISOR: exec_cmd: vm slot_add_binding R3 1 0 NM-1FE-TX 
+Apr 26 22:41:45.762 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:41:45.762 HYPERVISOR: exec_cmd: vm set_disk0 R3 1 
+Apr 26 22:41:45.762 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:41:45.763 HYPERVISOR: exec_cmd: vm set_idle_pc R3 0x611454bc 
+Apr 26 22:41:46.067 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto4 127.0.0.1 10001 20000 
+Apr 26 22:41:46.094 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto6 127.0.0.1 10001 20000 
+Apr 26 22:41:46.117 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto8 127.0.0.1 10001 20000 
+Apr 26 22:41:46.498 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto4 127.0.0.1 20503 
+Apr 26 22:41:46.499 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 0 nio_udp_auto4 
+Apr 26 22:41:46.499 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:41:46.602 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto6 127.0.0.1 10006 
+Apr 26 22:41:46.602 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 1 nio_udp_auto6 
+Apr 26 22:41:46.603 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:41:46.709 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto8 127.0.0.1 10010 
+Apr 26 22:41:46.709 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 1 0 nio_udp_auto8 
+Apr 26 22:41:46.710 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:46:27.332 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:46:27.333 HYPERVISOR: exec_cmd: vm slot_remove_nio_binding R3 0 1 
+Apr 26 22:46:27.333 HYPERVISOR: exec_cmd: nio delete nio_udp_auto6 
+Apr 26 22:46:40.023 HYPERVISOR: exec_cmd: nio create_udp_auto nio_udp_auto20 127.0.0.1 10001 20000 
+Apr 26 22:46:40.134 HYPERVISOR: exec_cmd: nio connect_udp_auto nio_udp_auto20 127.0.0.1 10006 
+Apr 26 22:46:40.135 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 0 1 nio_udp_auto20 
+Apr 26 22:46:40.136 HYPERVISOR: exec_cmd: vm get_status R3 
+Apr 26 22:47:39.060 HYPERVISOR: Stopped.
+Apr 26 22:47:39.061 VM: VM R3 destroyed.
+Apr 26 22:47:39.171 GENERAL: reset done.

@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,8 @@ import Entities.Neighbour;
 import Matrix.ControllerMatrix;
 import Matrix.ExportMatrix;
 import Matrix.ImportMatrix;
+import PTP.PTP;
+import PTP.Type;
 
 public class GraphicInterface 
 {
@@ -132,6 +136,10 @@ public class GraphicInterface
 		hostNameTextField.setColumns(10);
 		hostNameTextField.setBounds(423, 31, 151, 23);
 		applicaitonPanel.add(hostNameTextField);
+		
+		JButton slaveModeButton = new JButton("Slave mode");
+		slaveModeButton.setBounds(10, 201, 151, 23);
+		applicaitonPanel.add(slaveModeButton);
 
 		
 		/** 
@@ -243,6 +251,48 @@ public class GraphicInterface
 					matrixPanel.revalidate();
                 	
                 }
+			}
+		});
+		
+		synchronizeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				try 
+				{
+					//Estes dados vao ser lidos de um ficheiro config
+					Thread ptp = new Thread(new PTP("224.0.0.3", Type.MASTER, 8888, InetAddress.getLocalHost().getHostAddress()));
+					ptp.start();
+					ptp.join();
+				} 
+				catch (InterruptedException | UnknownHostException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		});
+		
+		slaveModeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				
+				//Fazer validações dos campos
+				try 
+				{
+					//Estes dados vao ser lidos de um ficheiro config
+					Thread ptp = new Thread(new PTP("224.0.0.3", Type.SLAVE, 8888, InetAddress.getLocalHost().getHostAddress()));
+					ptp.start();
+					ptp.join();
+				} 
+				catch (InterruptedException | UnknownHostException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

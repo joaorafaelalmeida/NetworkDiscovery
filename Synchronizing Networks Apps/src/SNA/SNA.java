@@ -1,6 +1,8 @@
 package SNA;
 
 import java.awt.EventQueue;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import PTP.PTP;
 import PTP.Type;
@@ -31,18 +33,6 @@ public class SNA
 						}
 					}
 				});
-				
-				Thread ptp = new Thread(new PTP("225.4.5.6", Type.SLAVE, 6969));//Estes dados vao ser lidos de um ficheiro config
-				ptp.start();
-				try 
-				{
-					ptp.join();
-				} 
-				catch (InterruptedException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				break;
 			case 1:
 				/**

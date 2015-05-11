@@ -7,11 +7,21 @@ public class Device
 {
 	private final String deviceName;
 	private List<Neighbour> neighbours;
+	private String ipAddress;
+	private Routers gateway;
 	
 	public Device(String deviceName)
 	{
 		this.deviceName = deviceName;
 		neighbours = new ArrayList<>();
+		this.ipAddress = "empty";
+	}
+	
+	public Device(String deviceName, String ip)
+	{
+		this.deviceName = deviceName;
+		neighbours = new ArrayList<>();
+		this.ipAddress = ip;
 	}
 	
 	public void addNewNeighbour(Neighbour neighbour)
@@ -64,6 +74,16 @@ public class Device
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+
+	public Routers getGateway() 
+	{
+		return gateway;
+	}
+
+	public void setGateway(Routers gateway) 
+	{
+		this.gateway = gateway;
 	}
 
 	

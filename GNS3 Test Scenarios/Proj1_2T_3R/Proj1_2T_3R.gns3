@@ -5,47 +5,25 @@
     "topology": {
         "links": [
             {
-                "description": "Link from Ubuntu2 port Ethernet0 to Router1 port FastEthernet0/0", 
+                "description": "Link from PC1 port Ethernet0 to Router1 port FastEthernet2/0", 
                 "destination_node_id": 1, 
-                "destination_port_id": 1, 
+                "destination_port_id": 34, 
                 "destination_port_label": {
                     "color": "#000000", 
                     "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
-                    "text": "f0/0", 
-                    "x": -7.0, 
-                    "y": 22.0
+                    "text": "f2/0", 
+                    "x": 14.423579425077207, 
+                    "y": -13.424802026596922
                 }, 
                 "id": 1, 
-                "source_node_id": 6, 
-                "source_port_id": 23, 
+                "source_node_id": 7, 
+                "source_port_id": 32, 
                 "source_port_label": {
                     "color": "#000000", 
                     "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
                     "text": "e0", 
-                    "x": 72.5, 
-                    "y": 29.5
-                }
-            }, 
-            {
-                "description": "Link from Router2 port FastEthernet0/0 to Ubuntu port Ethernet0", 
-                "destination_node_id": 5, 
-                "destination_port_id": 12, 
-                "destination_port_label": {
-                    "color": "#000000", 
-                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
-                    "text": "e0", 
-                    "x": -22.49956328778785, 
-                    "y": 29.313086152860805
-                }, 
-                "id": 2, 
-                "source_node_id": 2, 
-                "source_port_id": 3, 
-                "source_port_label": {
-                    "color": "#000000", 
-                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
-                    "text": "f0/0", 
-                    "x": 72.99956328778788, 
-                    "y": 22.186913847139195
+                    "x": 51.07642057492279, 
+                    "y": 64.92480202659692
                 }
             }, 
             {
@@ -59,7 +37,7 @@
                     "x": -39.0, 
                     "y": 23.0
                 }, 
-                "id": 3, 
+                "id": 2, 
                 "source_node_id": 1, 
                 "source_port_id": 13, 
                 "source_port_label": {
@@ -68,6 +46,28 @@
                     "text": "f1/0", 
                     "x": 73.0, 
                     "y": 22.0
+                }
+            }, 
+            {
+                "description": "Link from Router2 port FastEthernet2/0 to PC2 port Ethernet0", 
+                "destination_node_id": 8, 
+                "destination_port_id": 33, 
+                "destination_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "e0", 
+                    "x": 13.591712677413938, 
+                    "y": 64.74878253963576
+                }, 
+                "id": 3, 
+                "source_node_id": 2, 
+                "source_port_id": 35, 
+                "source_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "f2/0", 
+                    "x": 62.90828732258606, 
+                    "y": -24.248782539635755
                 }
             }, 
             {
@@ -113,6 +113,50 @@
                     "x": 73.01225163703478, 
                     "y": -15.537052401253348
                 }
+            }, 
+            {
+                "description": "Link from Router2 port FastEthernet0/0 to Ubuntu port Ethernet0", 
+                "destination_node_id": 5, 
+                "destination_port_id": 12, 
+                "destination_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "e0", 
+                    "x": -22.49956328778785, 
+                    "y": 29.313086152860805
+                }, 
+                "id": 6, 
+                "source_node_id": 2, 
+                "source_port_id": 3, 
+                "source_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "f0/0", 
+                    "x": 72.99956328778788, 
+                    "y": 22.186913847139195
+                }
+            }, 
+            {
+                "description": "Link from Ubuntu2 port Ethernet0 to Router1 port FastEthernet0/0", 
+                "destination_node_id": 1, 
+                "destination_port_id": 1, 
+                "destination_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "f0/0", 
+                    "x": -7.0, 
+                    "y": 22.0
+                }, 
+                "id": 7, 
+                "source_node_id": 6, 
+                "source_port_id": 23, 
+                "source_port_label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "e0", 
+                    "x": 72.5, 
+                    "y": 29.5
+                }
             }
         ], 
         "nodes": [
@@ -130,7 +174,7 @@
                     {
                         "description": "connected to Ubuntu2 on port Ethernet0", 
                         "id": 1, 
-                        "link_id": 1, 
+                        "link_id": 7, 
                         "name": "FastEthernet0/0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0, 
@@ -146,9 +190,18 @@
                         "slot_number": 0
                     }, 
                     {
+                        "description": "connected to PC1 on port Ethernet0", 
+                        "id": 34, 
+                        "link_id": 1, 
+                        "name": "FastEthernet2/0", 
+                        "nio": "NIO_UDP", 
+                        "port_number": 0, 
+                        "slot_number": 2
+                    }, 
+                    {
                         "description": "connected to Router2 on port FastEthernet1/0", 
                         "id": 13, 
-                        "link_id": 3, 
+                        "link_id": 2, 
                         "name": "FastEthernet1/0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0, 
@@ -167,6 +220,7 @@
                     "nvram": 256, 
                     "private_config": "configs/i1_private-config.cfg", 
                     "slot1": "NM-1FE-TX", 
+                    "slot2": "NM-1FE-TX", 
                     "startup_config": "configs/i1_startup-config.cfg"
                 }, 
                 "router_id": 1, 
@@ -189,7 +243,7 @@
                     {
                         "description": "connected to Ubuntu on port Ethernet0", 
                         "id": 3, 
-                        "link_id": 2, 
+                        "link_id": 6, 
                         "name": "FastEthernet0/0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0, 
@@ -205,9 +259,18 @@
                         "slot_number": 0
                     }, 
                     {
+                        "description": "connected to PC2 on port Ethernet0", 
+                        "id": 35, 
+                        "link_id": 3, 
+                        "name": "FastEthernet2/0", 
+                        "nio": "NIO_UDP", 
+                        "port_number": 0, 
+                        "slot_number": 2
+                    }, 
+                    {
                         "description": "connected to Router1 on port FastEthernet1/0", 
                         "id": 14, 
-                        "link_id": 3, 
+                        "link_id": 2, 
                         "name": "FastEthernet1/0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0, 
@@ -226,6 +289,7 @@
                     "nvram": 256, 
                     "private_config": "configs/i2_private-config.cfg", 
                     "slot1": "NM-1FE-TX", 
+                    "slot2": "NM-1FE-TX", 
                     "startup_config": "configs/i2_startup-config.cfg"
                 }, 
                 "router_id": 2, 
@@ -298,7 +362,7 @@
                     {
                         "description": "connected to Router2 on port FastEthernet0/0", 
                         "id": 12, 
-                        "link_id": 2, 
+                        "link_id": 6, 
                         "name": "Ethernet0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0
@@ -337,7 +401,7 @@
                     {
                         "description": "connected to Router1 on port FastEthernet0/0", 
                         "id": 23, 
-                        "link_id": 1, 
+                        "link_id": 7, 
                         "name": "Ethernet0", 
                         "nio": "NIO_UDP", 
                         "port_number": 0
@@ -360,6 +424,68 @@
                 "vbox_id": 1, 
                 "x": -435.5, 
                 "y": -98.5
+            }, 
+            {
+                "description": "VPCS device", 
+                "id": 7, 
+                "label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "PC1", 
+                    "x": 16.5, 
+                    "y": -25.0
+                }, 
+                "ports": [
+                    {
+                        "description": "connected to Router1 on port FastEthernet2/0", 
+                        "id": 32, 
+                        "link_id": 1, 
+                        "name": "Ethernet0", 
+                        "nio": "NIO_UDP", 
+                        "port_number": 0
+                    }
+                ], 
+                "properties": {
+                    "console": 4501, 
+                    "name": "PC1", 
+                    "script_file": "startup.vpc"
+                }, 
+                "server_id": 1, 
+                "type": "VPCSDevice", 
+                "vpcs_id": 1, 
+                "x": -256.5, 
+                "y": -262.5
+            }, 
+            {
+                "description": "VPCS device", 
+                "id": 8, 
+                "label": {
+                    "color": "#000000", 
+                    "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                    "text": "PC2", 
+                    "x": 16.5, 
+                    "y": -25.0
+                }, 
+                "ports": [
+                    {
+                        "description": "connected to Router2 on port FastEthernet2/0", 
+                        "id": 33, 
+                        "link_id": 3, 
+                        "name": "Ethernet0", 
+                        "nio": "NIO_UDP", 
+                        "port_number": 0
+                    }
+                ], 
+                "properties": {
+                    "console": 4502, 
+                    "name": "PC2", 
+                    "script_file": "startup.vpc"
+                }, 
+                "server_id": 1, 
+                "type": "VPCSDevice", 
+                "vpcs_id": 2, 
+                "x": 157.5, 
+                "y": -249.5
             }
         ], 
         "notes": [
@@ -467,6 +593,34 @@
                 "text": "2", 
                 "x": 141.0, 
                 "y": -98.0
+            }, 
+            {
+                "color": "#000000", 
+                "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                "text": "10.0.10.0/24", 
+                "x": -180.0, 
+                "y": -174.0
+            }, 
+            {
+                "color": "#000000", 
+                "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                "text": "10", 
+                "x": -235.0, 
+                "y": -198.0
+            }, 
+            {
+                "color": "#000000", 
+                "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                "text": "10.0.20.0/24", 
+                "x": 55.0, 
+                "y": -163.0
+            }, 
+            {
+                "color": "#000000", 
+                "font": "TypeWriter,10,-1,5,75,0,0,0,0,0", 
+                "text": "20", 
+                "x": 178.0, 
+                "y": -181.0
             }
         ], 
         "servers": [

@@ -1,0 +1,140 @@
+package PTP;
+
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
+import java.util.Random;
+
+public class PTP implements Runnable
+{
+	private String ipMulticastAddress;
+	private String ipDevice;
+	private InetAddress group;
+	private Type type;
+	private int port;
+	private int sessionID;
+	
+	public PTP (String ipMulticastAddress, Type type, int port, String ipDevice)
+	{
+		this.ipMulticastAddress = ipMulticastAddress;
+		this.type = type;
+		this.port = port;
+		this.ipDevice = ipDevice;
+		
+		try 
+		{
+			group = InetAddress.getByName(ipMulticastAddress);
+		} 
+		catch (UnknownHostException e) 
+		{
+			// MUDAR ISTO AQUI
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void run() 
+	{
+		if(type.equals(Type.SLAVE))
+		{
+	        byte[] buf = new byte[256];//muda isto
+
+	        try (MulticastSocket clientSocket = new MulticastSocket(port))
+	        {
+	            clientSocket.joinGroup(group);
+	            boolean waitForSync = true;
+	            
+	            while (waitForSync) 
+	            {
+	                DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
+	                clientSocket.receive(msgPacket);
+
+	                DataInputStream ois = new DataInputStream(new ByteArrayInputStream(buf));
+	                int sessionIDTmp = ois.readInt();
+	                int packID = ois.readInt();
+	                
+	          	  	byte[] ipMaster = new byte[ois.readInt()];
+	          	  	ois.read(ipMaster);
+	          	  	System.out.println("Sync package received, session id " + sessionIDTmp + " package id "+ packID);
+	          	  	
+	          	  	
+	                buf = new byte[256];
+	                msgPacket = new DatagramPacket(buf, buf.length);
+	                clientSocket.receive(msgPacket);
+	                
+	                ois = new DataInputStream(new ByteArrayInputStream(buf));
+	                int sessionIDTmp2 = ois.readInt();
+	                int packID2 = ois.readInt();
+	                
+	                if(sessionIDTmp2 == sessionIDTmp && packID2 == packID) //Tudo ok
+	                {
+	                	long time = ois.readLong();
+	                	System.out.println(time);
+	                }
+	                else //Algo errado, tratar deste problema
+	                {
+	                	System.out.println("erro " + sessionIDTmp2 + " pid " + packID2);
+	                }
+	            }
+	        } 
+	        catch (IOException ex) 
+	        {
+	            ex.printStackTrace();
+	        }
+		}
+		
+		sessionID = new Random().nextInt(9999);
+		if(type.equals(Type.MASTER))
+		{
+		     
+	        try (DatagramSocket serverSocket = new DatagramSocket()) 
+	        {
+	        	//Sincronizacao
+	            for (int i = 0; i < 5; i++) 
+	            {
+	                byte[] msg = Protocols.Sync(ipDevice, sessionID, i);
+	                DatagramPacket msgPacket = new DatagramPacket(msg,msg.length, group, port);
+	                serverSocket.send(msgPacket);
+	                
+	                msg = new byte[0];//Limpar pacote
+	                msg = Protocols.SendTimeSync(sessionID, i);
+	                msgPacket = new DatagramPacket(msg,msg.length, group, port);
+	                serverSocket.send(msgPacket);
+	     
+	                System.out.println("Server sent packet sync and timeSync with id " + i + " in session id "+sessionID);
+	                Thread.sleep(500);
+	            }
+	            
+	            //Receber respostas de slaves em unicast durante x segundos
+	            long inicialTime = System.currentTimeMillis();
+	            boolean waitForAnswer = true;
+	            List<String> allDevices = new ArrayList();
+	            while (waitForAnswer)
+	            {
+	            	
+	            	if(System.currentTimeMillis() - inicialTime > 10000)//depois mudar isto
+	            		waitForAnswer = false;
+	            }
+	            
+	        } 
+	        catch (IOException ex) 
+	        {
+	            ex.printStackTrace();
+	        } 
+	        catch (InterruptedException e) 
+	        {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+	
+	
+}
