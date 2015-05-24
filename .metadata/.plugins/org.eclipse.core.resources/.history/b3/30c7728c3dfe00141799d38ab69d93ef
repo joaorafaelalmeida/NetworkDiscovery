@@ -1,0 +1,10 @@
+package MeasureDelays;
+
+public class ThreadSendTimes extends Thread
+{
+	@Override
+	public void run() 
+	{
+		//Receb ordem e envia atrasos
+	}
+}

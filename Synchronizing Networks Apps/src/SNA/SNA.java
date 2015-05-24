@@ -4,8 +4,8 @@ import java.awt.EventQueue;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import PTP.PTP;
-import PTP.Type;
+import MeasureDelays.MeasureDelays;
+import MeasureDelays.Type;
 import UserInterface.GraphicInterface;
 
 public class SNA 

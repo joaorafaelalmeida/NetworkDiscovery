@@ -1,0 +1,10 @@
+package Matrix;
+
+import java.util.List;
+
+import Entities.Device;
+
+public class Matrix {
+	public static List<Device> devices;
+	
+}

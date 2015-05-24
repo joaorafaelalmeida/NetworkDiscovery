@@ -1,0 +1,39 @@
+package MeasureDelays;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+
+import javax.swing.JOptionPane;
+
+public class ThreadEscuta extends Thread
+{
+	private InetAddress group;
+	private int port;
+	
+	public ThreadEscuta(InetAddress group, int port)
+	{
+		this.group = group;
+		this.port = port;
+	}
+	
+	@Override
+	public void run() 
+	{
+		//Recebe atrasos
+		MulticastSocket multicastSocket = null;
+		CurrentTime time = null;
+		try
+		{
+			multicastSocket = new MulticastSocket(port);
+			multicastSocket.joinGroup(group);
+			multicastSocket.setTimeToLive(64);			
+		}
+		catch (IOException e) 
+		{
+			if(frame != null)
+				JOptionPane.showMessageDialog(frame, "IOException: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("IOException: " + e);
+		}
+	}
+}

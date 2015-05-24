@@ -15,7 +15,12 @@ public class NTA {
 			{
 				try 
 				{
-					GraphicInterface window = new GraphicInterface();
+					GraphicInterface window;
+					//ISTO TALVEZ ESTEJA MAL
+					if(args[0] != null)
+						window = new GraphicInterface(args[0]);
+					else
+						window = new GraphicInterface();
 					window.getFrame().setVisible(true);
 				} 
 				catch (Exception e) 

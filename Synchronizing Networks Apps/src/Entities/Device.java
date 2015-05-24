@@ -1,9 +1,10 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Device 
+public class Device implements Serializable
 {
 	private final String deviceName;
 	private List<Neighbour> neighbours;
@@ -14,7 +15,7 @@ public class Device
 	{
 		this.deviceName = deviceName;
 		neighbours = new ArrayList<>();
-		this.ipAddress = "empty";
+		this.ipAddress = deviceName;
 	}
 	
 	public Device(String deviceName, String ip)
@@ -26,6 +27,12 @@ public class Device
 	
 	public void addNewNeighbour(Neighbour neighbour)
 	{
+		for(Neighbour tmp: neighbours)
+			if(tmp.getDeviceName().equals(neighbour.getDeviceName()))
+			{
+				tmp.setDistance(neighbour.getDistance());
+				return;
+			}
 		neighbours.add(neighbour);
 	}
 
@@ -51,7 +58,7 @@ public class Device
 	{
 		for(Neighbour tmp: neighbours)
 			if(tmp.getDeviceName().equals(name))
-				tmp.setDistance(distance);
+				tmp.resetDistance(distance);
 	}
 	
 	public void removeNeighbour(String name)

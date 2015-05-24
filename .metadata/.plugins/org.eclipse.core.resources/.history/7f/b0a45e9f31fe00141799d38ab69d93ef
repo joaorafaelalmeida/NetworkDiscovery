@@ -1,0 +1,11 @@
+package MeasureDelays;
+
+public class ThreadEscuta extends Thread
+{
+	
+	@Override
+	public void run() 
+	{
+		//Recebe atrasos
+	}
+}

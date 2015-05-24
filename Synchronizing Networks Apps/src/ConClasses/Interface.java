@@ -1,0 +1,58 @@
+package ConClasses;
+
+import MeasureDelays.MeasureDelays;
+
+public class Interface 
+{
+	//private final RepositorioGeral logger;
+
+    public Interface() 
+    {}
+
+    public Message processAndReply(Message inMessage) throws MessageException 
+    {
+        Message outMessage = null;                           // mensagem de resposta
+
+        /* validação da mensagem recebida */
+        switch (inMessage.getType()) 
+        {
+            case Message.DELAY_REQUEST:
+            	if(inMessage.getIp() == null)
+            		throw new MessageException("Ip inválido!", inMessage);
+                break;
+            case Message.REQ_SEND_SLAVE_IP:
+            	if(inMessage.getIp() == null)
+            		throw new MessageException("Ip inválido!", inMessage);
+                break;
+            case Message.REQ_PERMISSION:
+            	break;
+            case Message.REQ_SEND_DEVICE:
+            	if(inMessage.getDevice() == null)
+            		throw new MessageException("Invalid device", inMessage);
+            	break;
+            default:
+                throw new MessageException("Tipo inválido!", inMessage);
+        }
+
+        /* seu processamento */
+        switch (inMessage.getType()) 
+        {
+            case Message.DELAY_REQUEST:
+                outMessage = new Message(Message.DELAY_RESPONSE, System.nanoTime()); 
+                break;
+            case Message.REQ_SEND_SLAVE_IP:
+            	MeasureDelays.addDevices(inMessage.getIp());
+            	outMessage = new Message(Message.ACK_SEND_SLAVE_IP); 
+                break;
+            case Message.REQ_PERMISSION:
+            	outMessage = new Message(Message.ACK_PERMISSION); 
+            	break;
+            case Message.REQ_SEND_DEVICE:
+            	Matrix.Matrix.devices.add(inMessage.getDevice());
+            	outMessage = new Message(Message.ACK_SEND_DEVICE); 
+            	break;	
+        }
+
+        return (outMessage);
+    }
+}

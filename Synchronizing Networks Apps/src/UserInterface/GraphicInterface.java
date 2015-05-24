@@ -30,8 +30,11 @@ import Entities.Neighbour;
 import Matrix.ControllerMatrix;
 import Matrix.ExportMatrix;
 import Matrix.ImportMatrix;
-import PTP.PTP;
-import PTP.Type;
+import MeasureDelays.MeasureDelays;
+import MeasureDelays.Type;
+import NTA.NTA;
+
+import javax.swing.JSeparator;
 
 public class GraphicInterface 
 {
@@ -40,8 +43,7 @@ public class GraphicInterface
 	private List<Device> devicesList;
 	private JTextField newDeviceJTextField;
 	private JTextField ipMulticastAddressJTextField;
-	private JTextField hostNameTextField;
-
+	
 	public JFrame getFrame()
 	{
 		return frame;
@@ -128,18 +130,17 @@ public class GraphicInterface
 		ipMulticastAdressLabel.setBounds(262, 69, 151, 14);
 		applicaitonPanel.add(ipMulticastAdressLabel);
 		
-		JLabel hostNameLabel = new JLabel("Host name (optional)");
-		hostNameLabel.setBounds(262, 35, 151, 14);
-		applicaitonPanel.add(hostNameLabel);
-		
-		hostNameTextField = new JTextField();
-		hostNameTextField.setColumns(10);
-		hostNameTextField.setBounds(423, 31, 151, 23);
-		applicaitonPanel.add(hostNameTextField);
-		
 		JButton slaveModeButton = new JButton("Slave mode");
 		slaveModeButton.setBounds(10, 201, 151, 23);
 		applicaitonPanel.add(slaveModeButton);
+		
+		JButton showTopologyButton = new JButton("Show topology");
+		showTopologyButton.setBounds(10, 235, 151, 23);
+		applicaitonPanel.add(showTopologyButton);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 269, 151, 2);
+		applicaitonPanel.add(separator);
 
 		
 		/** 
@@ -261,7 +262,7 @@ public class GraphicInterface
 				try 
 				{
 					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new PTP("224.0.0.3", Type.MASTER, 8888, InetAddress.getLocalHost().getHostAddress()));
+					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.MASTER, 8888, InetAddress.getLocalHost().getHostAddress(),frame,matrixPanel));
 					ptp.start();
 					ptp.join();
 				} 
@@ -284,7 +285,7 @@ public class GraphicInterface
 				try 
 				{
 					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new PTP("224.0.0.3", Type.SLAVE, 8888, InetAddress.getLocalHost().getHostAddress()));
+					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.SLAVE, 8888, InetAddress.getLocalHost().getHostAddress()));
 					ptp.start();
 					ptp.join();
 				} 
@@ -293,6 +294,24 @@ public class GraphicInterface
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		});
+		
+		showTopologyButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+
+            	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, row))
+            	{
+            		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, row));
+                	configFile.saveInFile("");
+            	}
+            	else
+					JOptionPane.showMessageDialog(frame,"Some fields in matrix don't are valid", "Error", JOptionPane.ERROR_MESSAGE);
+
+            	String[] locationMatrix  = {"SNAMatrix.txt"};
+				NTA.main(locationMatrix);
 			}
 		});
 	}

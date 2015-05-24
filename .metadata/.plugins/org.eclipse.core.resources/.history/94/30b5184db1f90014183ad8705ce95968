@@ -1,0 +1,6 @@
+package CommonClasses;
+
+public class Parameters 
+{
+	public static boolean graphicInterface = true;
+}

@@ -47,7 +47,7 @@ public class ControllerMatrix
 	        {
 	    		JTextField textTemp = (JTextField)components[i];
 	        	index++;
-	        	Neighbour neighbourTmp = new Neighbour(allDevices.get(index-1).getDeviceName(),Double.parseDouble(textTemp.getText()));
+	        	Neighbour neighbourTmp = new Neighbour(allDevices.get(index-1).getDeviceName(), Double.parseDouble(textTemp.getText()));
 	        	tmp.addNewNeighbour(neighbourTmp);
 	        	if(index == row-1)
 	        	{
@@ -73,7 +73,7 @@ public class ControllerMatrix
 						if(neigh.getDeviceName().equals(others.getDeviceName()))
 						{
 							distance = (neigh.getDistance()+others.lookForDistanceByNeighbourName(selected.getDeviceName()))/2;
-							neigh.setDistance(distance);
+							neigh.resetDistance(distance);
 							others.setDistanceToNeighbourByName(selected.getDeviceName(), distance);
 						}		
 		return matrix;

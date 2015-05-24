@@ -1,9 +1,10 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Routers 
+public class Routers implements Serializable
 {
 	private List<Device> connectedDevices;
 	private List<Routers> connectedRouters;

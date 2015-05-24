@@ -1,0 +1,51 @@
+autostart = False
+version = 0.8.7
+[127.0.0.1:7200]
+    workingdir = C:\Users\Rafael\AppData\Local\Temp
+    udp = 10000
+    [[3725]]
+        image = C:\Routers\c3725-advipservicesk9-mz.124-21.image
+        idlepc = 0x6114545c
+        sparsemem = True
+        ghostios = True
+    [[ROUTER R1]]
+        model = 3725
+        console = 2001
+        aux = 2501
+        f0/0 = Ubuntu e1
+        f0/1 = R2 f0/1
+        cnfg = configs\R1.cfg
+        x = -270.0
+        y = -108.0
+        z = 1.0
+    [[ROUTER R2]]
+        model = 3725
+        console = 2002
+        aux = 2502
+        f0/0 = Ubuntu2 e1
+        f0/1 = R1 f0/1
+        cnfg = configs\R2.cfg
+        x = 5.0
+        y = -115.0
+        z = 1.0
+[vbox 127.0.0.1:11525]
+    workingdir = C:\Users\Rafael\AppData\Local\Temp
+    udp = 20900
+    [[VBoxDevice]]
+        image = Ubuntu
+        nics = 2
+    [[VBOX Ubuntu2]]
+        image = Ubuntu2
+        e1 = R2 f0/0
+        x = 208.5
+        y = -81.5
+        z = 1.0
+    [[VBOX Ubuntu]]
+        e1 = R1 f0/0
+        x = -380.5
+        y = 9.5
+        z = 1.0
+        hx = 4.5
+        hy = -24.0
+[GNS3-DATA]
+    configs = configs

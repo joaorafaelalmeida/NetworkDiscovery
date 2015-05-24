@@ -18,7 +18,12 @@ public class ExportMatrix
 	
 	public void saveInFile(String absolutePath) 
 	{
-		File file = new File(absolutePath+"/SNAMatrix.txt");
+		File file;
+		if(absolutePath.length() >0)
+			file = new File(absolutePath+"/SNAMatrix.txt");
+		else
+			file = new File("SNAMatrix.txt");
+		
 		FileOutputStream fos; 
 		try
 		{

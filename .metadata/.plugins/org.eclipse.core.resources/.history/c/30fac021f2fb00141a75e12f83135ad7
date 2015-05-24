@@ -1,0 +1,144 @@
+package PTP;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+public class Protocols 
+{
+	/**
+	 * Protocolos que iremos usar, nao tem argumentos e nao retornam nada por agora
+	 * depois possivelmente vao ser alterados
+	 * */
+	public static byte[] Sync(String ip, int sessionID, int packID)
+	{
+		/**
+		 * Pacote enviado pelo mestre, vai conter apenas o id de sessão e o seu endereço ip
+		 * Formato do pacote:
+		 * 4 bytes para a flag
+		 * 4 bytes para o tamanho do id da sessao
+		 * 4 bytes para o tamanho do id do pacote
+		 * 4 bytes para o tamanho do endereço ip
+		 * x bytes para o endereço ip
+		 * */
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream w = new DataOutputStream(baos);
+		  
+		try 
+		{
+			//Flag
+			w.writeInt(Flags.Sync.getCode());
+			
+			//Id da sessao
+			w.writeInt(sessionID);
+			w.writeInt(packID);
+			
+			//Endereço ip do master
+			w.writeInt(ip.length());
+			w.write(ip.getBytes());
+			
+			w.flush();
+			
+			return baos.toByteArray();
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+		
+	public static byte[] SendTimeSync(int sessionID, int packID)
+	{
+		/**
+		 * Pacote enviado pelo mestre, vai conter o id de sessao e o hora de envio do sync
+		 * Formato do pacote:
+		 * 4 bytes para a flag
+		 * 4 bytes para o tamanho do id da sessao
+		 * 4 bytes para o tamanho do id do pacote
+		 * 8 bytes para o tempo atual
+		 * */
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream w = new DataOutputStream(baos);
+		  
+		try 
+		{	
+			//Flag
+			w.writeInt(Flags.SendTimeSync.getCode());
+			
+			//Id da sessao
+			w.writeInt(sessionID);
+			w.writeInt(packID);
+			//Tempo atual
+			w.writeLong(System.nanoTime());
+
+			w.flush();
+			
+			return baos.toByteArray();
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static byte[] StartReadSlaves(int sessionID)
+	{
+		/**
+		 * Enviado pelo master a indicar aos slaves que podem começar a enviar pacotes de registo
+		 * Formato do pacote:
+		 * 4 bytes para a flag
+		 * 4 bytes para o tamanho do id da sessao
+		 * 
+		 * */
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream w = new DataOutputStream(baos);
+		  
+		try 
+		{	
+			//Flag
+			w.writeInt(Flags.StartReadSlaves.getCode());
+			
+			//Id da sessao
+			w.writeInt(sessionID);
+
+			w.flush();			
+			return baos.toByteArray();
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void DelayRequest()
+	{
+		/**
+		 * Enviado pelos slaves, vai conter o id de sessao, ip e nome(talvez)
+		 * */
+	}
+	
+	public void DelayResponse()
+	{
+		/**
+		 * Enviado pelo mestre, vai conter o id de sessao, e a hora de receção do delayrequest
+		 * */
+	}
+	
+	public void TimeOk()
+	{
+		/**
+		 * Enviado pelo mestre quando o espaço temporal é aceitavel, vai conter o id de sessao e ok 
+		 * */
+	}
+	
+}

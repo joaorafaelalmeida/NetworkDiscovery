@@ -48,6 +48,14 @@ public class GraphicInterface {
 		routers = new ArrayList();
 		initialize();
 	}
+	
+	public GraphicInterface(String locMatrix) 
+	{
+		
+		devices = new ArrayList();
+		routers = new ArrayList();
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.
