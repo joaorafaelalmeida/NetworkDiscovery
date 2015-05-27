@@ -17,9 +17,9 @@ public class NTA {
 				{
 					GraphicInterface window;
 					//ISTO TALVEZ ESTEJA MAL
-					if(args[0] != null)
+					/*if(args.length>0)
 						window = new GraphicInterface(args[0]);
-					else
+					else*/
 						window = new GraphicInterface();
 					window.getFrame().setVisible(true);
 				} 

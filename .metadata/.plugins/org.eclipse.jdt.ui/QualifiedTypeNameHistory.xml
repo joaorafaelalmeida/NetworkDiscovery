@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.swing.text.StyledEditorKit.ForegroundAction"/>
-<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
-<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-<fullyQualifiedTypeName name="java.awt.Component"/>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="UserInterface.ValidationFunctions"/>
 <fullyQualifiedTypeName name="UserInterface.ControllerFile"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
@@ -20,7 +15,6 @@
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-<fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.awt.Image"/>
@@ -49,7 +43,6 @@
 <fullyQualifiedTypeName name="Entities.Neighbour"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
-<fullyQualifiedTypeName name="Entities.Device"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Semaphore"/>
 <fullyQualifiedTypeName name="Matrix.Matrix"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
@@ -58,6 +51,13 @@
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
 <fullyQualifiedTypeName name="java.net.Inet4Address"/>
 <fullyQualifiedTypeName name="java.net.SocketException"/>
+<fullyQualifiedTypeName name="NTA.NTA"/>
+<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+<fullyQualifiedTypeName name="java.awt.geom.Line2D"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="Entities.Device"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="Entities.Location"/>
 </qualifiedTypeNameHistroy>

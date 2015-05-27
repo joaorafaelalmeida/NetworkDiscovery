@@ -10,6 +10,7 @@ public class Device implements Serializable
 	private List<Neighbour> neighbours;
 	private String ipAddress;
 	private Routers gateway;
+	private Location loc;
 	
 	public Device(String deviceName)
 	{
@@ -94,6 +95,14 @@ public class Device implements Serializable
 	}
 
 	
+	public void setLocation(Location l)
+	{
+		loc = l;
+	}
 	
+	public Location getLocation()
+	{
+		return loc;
+	}
 	
 }

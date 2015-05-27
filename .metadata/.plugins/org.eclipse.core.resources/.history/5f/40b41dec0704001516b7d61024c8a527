@@ -1,0 +1,58 @@
+package aaaTESTES;
+
+import java.awt.*;
+import javax.swing.*;
+
+// Extend JPanel to override its paintComponent() method: 
+
+class NewPanel extends JPanel {
+
+  // Set background in constructor. 
+
+  public NewPanel () 
+  {
+    this.setBackground (Color.cyan);
+  }
+  
+
+  // Override paintComponent(): 
+
+  public void paintComponent (Graphics g)
+  {
+    // Always call super.paintComponent (g): 
+    super.paintComponent(g);
+
+    // drawString() is a Graphics method. 
+    // Draw the string "Hello World" at location 100,100 
+    g.drawString ("Hello World!", 100, 100);
+    g.drawLine(1, 2, 3, 4);
+
+    // Let's find out when paintComponent() is called. 
+    System.out.println ("Inside paintComponent");
+  }
+
+}
+
+public class TestSwing4 {
+
+  public static void main (String[] argv)
+  {
+    // Create a frame 
+    JFrame f = new JFrame ();
+
+    // Set the title and other parameters. 
+    f.setTitle ("Hello World Test");
+    f.setResizable (true);
+    // Background is going to be Panel's background. 
+    // f.getContentPane().setBackground (Color.cyan); 
+    f.setSize (500, 300);
+
+    // Add the panel using the default BorderLayout 
+    NewPanel panel = new NewPanel ();
+    f.getContentPane().add (panel);
+
+    // Show the frame. 
+    f.setVisible (true);
+  }
+
+}
