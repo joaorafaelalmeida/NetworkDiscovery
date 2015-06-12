@@ -31,6 +31,7 @@ import Matrix.ControllerMatrix;
 import Matrix.ExportMatrix;
 import Matrix.ImportMatrix;
 import MeasureDelays.MeasureDelays;
+import MeasureDelays.MyIP;
 import MeasureDelays.Type;
 import NTA.NTA;
 
@@ -262,11 +263,11 @@ public class GraphicInterface
 				try 
 				{
 					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.MASTER, 8888, InetAddress.getLocalHost().getHostAddress(),frame,matrixPanel));
+					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.MASTER, 8888, MyIP.getMyIP(),frame,matrixPanel));
 					ptp.start();
 					ptp.join();
 				} 
-				catch (InterruptedException | UnknownHostException e) 
+				catch (InterruptedException e) 
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -285,11 +286,11 @@ public class GraphicInterface
 				try 
 				{
 					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.SLAVE, 8888, InetAddress.getLocalHost().getHostAddress()));
+					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.SLAVE, 8888, MyIP.getMyIP()));
 					ptp.start();
 					ptp.join();
 				} 
-				catch (InterruptedException | UnknownHostException e) 
+				catch (InterruptedException e) 
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();

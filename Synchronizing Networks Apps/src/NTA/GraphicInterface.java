@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 
 public class GraphicInterface {
 
@@ -68,7 +69,7 @@ public class GraphicInterface {
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 620, 500);
+		frame.setBounds(100, 100, 689, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -84,9 +85,20 @@ public class GraphicInterface {
 		frame.getContentPane().add(topologyPanel);
 		topologyPanel.setLayout(null);
 		
-		JButton loadTopologyButton = new JButton("Import topology");
-		loadTopologyButton.setBounds(10, 11, 151, 23);
+		JButton loadTopologyButton = new JButton("Import topology from file");
+		loadTopologyButton.setBounds(10, 11, 200, 23);
 		frame.getContentPane().add(loadTopologyButton);
+		
+		JButton btnMesauresDelays = new JButton("Mesaures delays");
+		btnMesauresDelays.setBounds(220, 11, 200, 23);
+		frame.getContentPane().add(btnMesauresDelays);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(430, 12, 200, 20);
+		comboBox.addItem("Exact Formulation");
+		comboBox.addItem("Robust Formulation");
+		comboBox.addItem("Feasibility Pump");
+		frame.getContentPane().add(comboBox);
 		
 		loadTopologyButton.addActionListener(new ActionListener() 
 		{
@@ -105,7 +117,6 @@ public class GraphicInterface {
 				//Desenhar Topologia
 				if(!devices.isEmpty())
 				{
-					
 					double raio;
 					int numPc = devices.size();
 					double angulo = Math.PI*2/numPc;
@@ -244,5 +255,4 @@ public class GraphicInterface {
 
 		  }
 	}
-
 }

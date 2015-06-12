@@ -47,8 +47,10 @@ public class ThreadEscuta extends Thread
 				byte[] buf = new byte[256];
 				DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
 		        multicastSocket.receive(msgPacket);
+		        
 		        DataInputStream ois = new DataInputStream(new ByteArrayInputStream(buf));
 	        	int flag = ois.readInt();
+	        	
 	        	if(flag == Flags.SendDelays.getCode())
 	        	{
 	        		byte[] ip = new byte[ois.readInt()];

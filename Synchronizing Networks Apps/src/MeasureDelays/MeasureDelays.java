@@ -123,7 +123,7 @@ public class MeasureDelays implements Runnable
 		    		                
 		    		          	  	ipMaster = new byte[ois.readInt()];
 		    		          	  	ois.read(ipMaster);
-		    		          	  	System.out.println("Sync package received, session id " + sessionID + " package id "+ packID);
+		    		          	  	System.out.println("Sync package received, session id " + sessionID + " package id "+ packID + ", master ip " + new String(ipMaster));
 		                			break;
 		                			
 		                		case SendTimeSync:
@@ -217,8 +217,8 @@ public class MeasureDelays implements Runnable
 					thE.join();
 					thS.join();
 				} 
-	            catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+	            catch (InterruptedException e) 
+	            {
 					e.printStackTrace();
 				}
 	            
@@ -278,15 +278,14 @@ public class MeasureDelays implements Runnable
 	            	try
 	            	{
 	            		sconi = scon.accept();                                      // entrada em processo de escuta
+	            		cliProxy = new Proxy(sconi, inter);       // lançamento do agente prestador do serviço
+		                cliProxy.start();
 	            	}
 	            	catch(SocketTimeoutException e)
 	            	{
 	            		syncTimes = false;
 	            		break;
 	            	}
-	                cliProxy = new Proxy(sconi, inter);       // lançamento do agente prestador do serviço
-	                cliProxy.start();
-	                
 	            }
 	            System.out.println("Syncronization is complete with sucess!");
 	            
@@ -308,14 +307,14 @@ public class MeasureDelays implements Runnable
 				}
 
 	            //Cria thread para receber atrasos e contruir a sua propria matrix
-	            Thread thE = new ThreadEscuta(group, port, InetAddress.getLocalHost().getHostAddress().getBytes());
+	            Thread thE = new ThreadEscuta(group, port, InetAddress.getLocalHost().getHostAddress().getBytes());//Aqui
 	            thE.start();
 	            try 
 	            {
 					thE.join();
 				} 
-	            catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+	            catch (InterruptedException e) 
+	            {
 					e.printStackTrace();
 				}
 	            
