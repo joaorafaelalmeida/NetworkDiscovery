@@ -144,7 +144,6 @@ public class Protocols
             catch (InterruptedException e) 
             {}
         }
-        
         outMessage = new Message(Message.REQ_SEND_SLAVE_IP, MyIP.getMyIP().getBytes());
         con.writeObject(outMessage);
         inMessage = (Message) con.readObject();
@@ -188,7 +187,8 @@ public class Protocols
             System.exit(1);
         }
         con.close();
-
+        
+        time.setMachineTime(System.nanoTime());
         time.ajustServerTime((inMessage.getTime() - time.getServerTime()));//+(endTime-startTime));
         return Math.abs(time.getServerTime() - inMessage.getTime());
 	}
@@ -325,9 +325,10 @@ public class Protocols
 	
 	public static void SendPermission(String deviceIp, int port)
 	{
+		
 		ClientCom con = new ClientCom(deviceIp, port);
         Message inMessage, outMessage;
-        
+
         while (!con.open()) // aguarda ligação
         {
             try 
@@ -351,7 +352,8 @@ public class Protocols
         con.close();
 	}
 
-	public static void SendToMasterFinishMeasures(byte[] ipMaster, int port) {
+	public static void SendToMasterFinishMeasures(byte[] ipMaster, int port) 
+	{
 		/**
 		 * Enviado pelos slaves para o master a indicar que terminou de enviar pacotes com tempos, este pacoe é em unicast
 		 * */

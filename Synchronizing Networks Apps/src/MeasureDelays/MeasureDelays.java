@@ -37,7 +37,7 @@ public class MeasureDelays implements Runnable
 	private int port;
 	private int sessionID;
 	private final JFrame frame;
-	private static List<Device> devices;
+	private static List<Device> devices = new ArrayList<Device>();
 	private JPanel matrixPanel;
 	
 	public MeasureDelays (String ipMulticastAddress, Type type, int port, String ipDevice)
@@ -149,7 +149,7 @@ public class MeasureDelays implements Runnable
 		                			break;
 		                			
 	                			default:
-	                				System.out.println("Flag inválida");
+	                				System.out.println("Flag invï¿½lida");
 	                		}
 	                }
 	                catch(OutOfMemoryError e)
@@ -158,7 +158,7 @@ public class MeasureDelays implements Runnable
 	                }
 	            }
 	            
-	            //Receção de pacote a permitir que sejam feitas as solicitaçoes ao servidor
+	            //Receï¿½ï¿½o de pacote a permitir que sejam feitas as solicitaï¿½oes ao servidor
 	            boolean waitForUnicastSync = true;
 	            while(waitForUnicastSync)
 	            {
@@ -183,7 +183,7 @@ public class MeasureDelays implements Runnable
 					          	  	waitForUnicastSync = false;
 		                			break;
 		                		default:
-		                			System.out.println("Flag inválida");
+		                			System.out.println("Flag invï¿½lida");
 		                			break;
 	                		}                		
 	                		
@@ -197,21 +197,26 @@ public class MeasureDelays implements Runnable
 	            //Enviar ip da maquina ao servidor
 	            Protocols.AdvertiseMaster(ipMaster, port);
 	            
-	            //Syncronização
+	            //Syncronizaï¿½ï¿½o
+	            System.out.print("Syncronize ");
 	            boolean endOfSync = true;
 	            while(endOfSync)
 	            {
 		            long diff = Protocols.DelayMesaures(ipMaster, port, time);
+		            System.out.print(".");
 		            if(diff < 1000)
+		            {
 		            	endOfSync = false;
-		            System.out.println("Diference time " + diff);
+		            	System.out.println("\nDiference time " + diff);
+		            }
 	            }
 	            
-	            //Fica á espera de ordem para enviar os seu tempos
-	            Thread thE = new ThreadEscuta(group, port, ipMaster);
-	            Thread thS = new ThreadSendTimes(group, port, ipMaster);
+	            //Fica ï¿½ espera de ordem para enviar os seu tempos
+	            Thread thE = new ThreadEscuta(group, port, ipMaster, time);
+	            Thread thS = new ThreadSendTimes(group, port, ipMaster, time);
 	            thE.start();
 	            thS.start();
+	            System.out.println("Start thread Escuta and thread SendTimes");
 	            try 
 	            {
 					thE.join();
@@ -221,9 +226,6 @@ public class MeasureDelays implements Runnable
 	            {
 					e.printStackTrace();
 				}
-	            
-	            
-	            
             }
             catch (IOException e) 
 			{
@@ -264,12 +266,12 @@ public class MeasureDelays implements Runnable
 				
 	            
 	            Interface inter = new Interface();
-	            ServerCom scon, sconi;                                          // canais de comunicação
-	            Proxy cliProxy;                                     // thread agente prestador do serviço
+	            ServerCom scon, sconi;                                          // canais de comunicaï¿½ï¿½o
+	            Proxy cliProxy;                                     // thread agente prestador do serviï¿½o
 
 	            /* estabelecimento do servico */
-	            scon = new ServerCom(port);                // criação do canal de escuta e sua associação
-	            scon.start();                                                   // com o endereço público
+	            scon = new ServerCom(port);                // criaï¿½ï¿½o do canal de escuta e sua associaï¿½ï¿½o
+	            scon.start();                                                   // com o endereï¿½o pï¿½blico
 	            
 	            /* processamento de pedidos */
 	            boolean syncTimes = true;
@@ -278,7 +280,7 @@ public class MeasureDelays implements Runnable
 	            	try
 	            	{
 	            		sconi = scon.accept();                                      // entrada em processo de escuta
-	            		cliProxy = new Proxy(sconi, inter);       // lançamento do agente prestador do serviço
+	            		cliProxy = new Proxy(sconi, inter);       // lanï¿½amento do agente prestador do serviï¿½o
 		                cliProxy.start();
 	            	}
 	            	catch(SocketTimeoutException e)
@@ -291,82 +293,74 @@ public class MeasureDelays implements Runnable
 	            
 	            /*
 	             * Enviar pacotes de atraso
-	             * Enviar permissão para os slaves mandaram os atrasos em unicast
+	             * Enviar permissï¿½o para os slaves mandaram os atrasos em unicast
 	             * Receber os devices
 	             * Enviar para a matrix 
 	             * */
 	            
+	            System.out.print("Send delay packages ");
 	            //Enviar pacotes de atraso (100 pacotes)
-	            for (int j = 0; j < 100; j++) 
+	            for (int j = 0; j < 10; j++) //Mudar para 100
 	            {
+	            	System.out.print(".");
 	            	msg = new byte[0];
 		            msg = Protocols.SendDelays(System.nanoTime());
 		            messageOut = new DatagramPacket(msg, msg.length, group, port);
 		            multicastSocket.send(messageOut);
 		            Thread.sleep(50);
 				}
+	            System.out.println("");
 
 	            //Cria thread para receber atrasos e contruir a sua propria matrix
-	            Thread thE = new ThreadEscuta(group, port, InetAddress.getLocalHost().getHostAddress().getBytes());//Aqui
+	            Thread thE = new ThreadEscuta(group, port, MyIP.getMyIP().getBytes());
 	            thE.start();
-	            try 
-	            {
-					thE.join();
-				} 
-	            catch (InterruptedException e) 
-	            {
-					e.printStackTrace();
-				}
 	            
 	            //Enviar permissoes
 	            for(Device tmp: devices)
 	            {
-	            	try
+	            	if(tmp!=null)
 	            	{
+		            	System.out.println("Permission for device " + tmp.getDeviceName());
 	            		Protocols.SendPermission(tmp.getDeviceName(), port);
-	            		
-	            		sconi = scon.accept();                                      // entrada em processo de escuta
-	            		Message inMessage = (Message) sconi.readObject();       // ler pedido do cliente
-	            		//Caso de M*** RESOLVER
-	            		
-	            		Message outMessage = inter.processAndReply(inMessage);
-	            		sconi.writeObject(outMessage);                                  // enviar resposta ao cliente
-	                    sconi.close();  
 	            	}
-	            	catch(SocketTimeoutException e)
-	            	{} 
-	            	catch (MessageException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+	            	else
+	            		System.out.println("NULL");
 	            }
 	            
 	            //Enviar pacote em multicast a indicar que pode receber os devices
+	            System.out.println("Receive delays from all slaves");
 	            msg = Protocols.AdvertiseSlavesToSendDevies();
 	            messageOut = new DatagramPacket(msg, msg.length, group, port);
 	            multicastSocket.send(messageOut);
 	            
 	            //Receber diveces
-	            syncTimes = true;
-	            while (syncTimes) 
+	            int count = 0;
+	            while (true) 
 	            {
 	            	try
 	            	{
 	            		sconi = scon.accept();                                      // entrada em processo de escuta
+	            		cliProxy = new Proxy(sconi, inter);       // lanï¿½amento do agente prestador do serviï¿½o
+		                cliProxy.start();
 	            	}
 	            	catch(SocketTimeoutException e)
 	            	{
-	            		syncTimes = false;
-	            		break;
+	            		count ++;
+	            		if(count >3)
+	            			break;
 	            	}
-	                cliProxy = new Proxy(sconi, inter);       // lançamento do agente prestador do serviço
-	                cliProxy.start();
-	                
 	            }
+	            System.out.println("Load matrix");
+	            
+	            //APAGAR ISTO
+	            System.out.println("\n\n\n");
+	            for(Device tmp: Matrix.Matrix.devices)
+	            	System.out.println(tmp+"\n");
 	            
 	            //Carregar matrix
 	            ControllerInterface control = new ControllerInterface();
-	            control.reloadMatrix(matrixPanel, Matrix.Matrix.devices.size(), Matrix.Matrix.devices);
+	            control.openMatrixFromMeasures(matrixPanel, Matrix.Matrix.devices.size(), Matrix.Matrix.devices);
+	            matrixPanel.revalidate();
 
 			}
 			catch (IOException e) 
@@ -391,7 +385,7 @@ public class MeasureDelays implements Runnable
 		try 
 		{
 			acess.acquire();
-			devices.add(new Device(ip, ip));//MUDAR ISTO SE NECESSÁRIO
+			devices.add(new Device(ip, ip));
 			acess.release();
 		} 
 		catch (InterruptedException e) 

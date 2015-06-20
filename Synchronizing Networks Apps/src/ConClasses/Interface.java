@@ -1,28 +1,32 @@
 package ConClasses;
 
+import java.util.concurrent.Semaphore;
+
 import MeasureDelays.MeasureDelays;
 
 public class Interface 
 {
 	//private final RepositorioGeral logger;
-
+	private Semaphore acess;
     public Interface() 
-    {}
+    {
+    	acess = new Semaphore(1);
+    }
 
     public Message processAndReply(Message inMessage) throws MessageException 
     {
         Message outMessage = null;                           // mensagem de resposta
 
-        /* validação da mensagem recebida */
+        /* validaï¿½ï¿½o da mensagem recebida */
         switch (inMessage.getType()) 
         {
             case Message.DELAY_REQUEST:
             	if(inMessage.getIp() == null)
-            		throw new MessageException("Ip inválido!", inMessage);
+            		throw new MessageException("Ip invï¿½lido!", inMessage);
                 break;
             case Message.REQ_SEND_SLAVE_IP:
             	if(inMessage.getIp() == null)
-            		throw new MessageException("Ip inválido!", inMessage);
+            		throw new MessageException("Ip invï¿½lido!", inMessage);
                 break;
             case Message.REQ_PERMISSION:
             	break;
@@ -31,7 +35,7 @@ public class Interface
             		throw new MessageException("Invalid device", inMessage);
             	break;
             default:
-                throw new MessageException("Tipo inválido!", inMessage);
+                throw new MessageException("Tipo invï¿½lido!", inMessage);
         }
 
         /* seu processamento */
@@ -41,7 +45,18 @@ public class Interface
                 outMessage = new Message(Message.DELAY_RESPONSE, System.nanoTime()); 
                 break;
             case Message.REQ_SEND_SLAVE_IP:
-            	MeasureDelays.addDevices(inMessage.getIp());
+				try 
+				{
+					acess.acquire();
+					MeasureDelays.addDevices(inMessage.getIp());
+	            	acess.release();
+				} 
+				catch (InterruptedException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
             	outMessage = new Message(Message.ACK_SEND_SLAVE_IP); 
                 break;
             case Message.REQ_PERMISSION:

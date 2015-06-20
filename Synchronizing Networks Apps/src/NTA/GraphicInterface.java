@@ -77,7 +77,7 @@ public class GraphicInterface {
 		frame.setResizable(false);
 
 		TopologyPanel topologyPanel = new TopologyPanel();
-		topologyPanel.setBounds(10, 45, frame.getWidth()-25, frame.getHeight()-100);
+		topologyPanel.setBounds(10, 75, frame.getWidth()-25, frame.getHeight()-100);
 		topologyPanel.setBackground(Color.WHITE);
 		drawAreaHight = topologyPanel.getHeight();
 		drawAreaWidth = topologyPanel.getWidth();
@@ -89,8 +89,8 @@ public class GraphicInterface {
 		loadTopologyButton.setBounds(10, 11, 200, 23);
 		frame.getContentPane().add(loadTopologyButton);
 		
-		JButton btnMesauresDelays = new JButton("Mesaures delays");
-		btnMesauresDelays.setBounds(220, 11, 200, 23);
+		JButton btnMesauresDelays = new JButton("Measure delays");
+		btnMesauresDelays.setBounds(220, 40, 200, 23);
 		frame.getContentPane().add(btnMesauresDelays);
 		
 		JComboBox comboBox = new JComboBox();
@@ -99,6 +99,14 @@ public class GraphicInterface {
 		comboBox.addItem("Robust Formulation");
 		comboBox.addItem("Feasibility Pump");
 		frame.getContentPane().add(comboBox);
+		
+		JButton btnExportTopologyTo = new JButton("Export topology to file");
+		btnExportTopologyTo.setBounds(10, 40, 200, 23);
+		frame.getContentPane().add(btnExportTopologyTo);
+		
+		JButton btnReadDelaysFrom = new JButton("Read delays from file");
+		btnReadDelaysFrom.setBounds(220, 11, 200, 23);
+		frame.getContentPane().add(btnReadDelaysFrom);
 		
 		loadTopologyButton.addActionListener(new ActionListener() 
 		{

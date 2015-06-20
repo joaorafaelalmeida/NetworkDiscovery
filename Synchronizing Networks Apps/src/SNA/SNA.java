@@ -24,6 +24,7 @@ public class SNA
 					{
 						try 
 						{
+							//StartMenuSNA window = new StartMenuSNA();
 							GraphicInterface window = new GraphicInterface();
 							window.getFrame().setVisible(true);
 						} 
@@ -39,11 +40,6 @@ public class SNA
 				 * Recebe o ficheiro config  ou o ip do multicast ou o help
 				 * */
 				CommandLineFunctions.OpcionWithOneParameter(args[0]);
-				break;
-			case 2:
-				/**
-				 * Recebe o ip do multicast e o nome do host
-				 * */
 				break;
 			default: System.out.println("Invalid arguments!");
 		}

@@ -10,6 +10,11 @@ public class CurrentTime
 		machineTime = System.nanoTime();
 	}
 	
+	public void setMachineTime(long time)
+	{
+		machineTime = time;
+	}
+	
 	public void setServerTime(long time)
 	{
 		serverTime = time;

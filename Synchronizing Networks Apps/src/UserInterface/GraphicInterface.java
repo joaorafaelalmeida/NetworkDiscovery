@@ -17,10 +17,14 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -34,14 +38,13 @@ import MeasureDelays.MeasureDelays;
 import MeasureDelays.MyIP;
 import MeasureDelays.Type;
 import NTA.NTA;
+import static Matrix.Matrix.*;
 
 import javax.swing.JSeparator;
 
 public class GraphicInterface 
 {
 	private JFrame frame;
-	private int row;
-	private List<Device> devicesList;
 	private JTextField newDeviceJTextField;
 	private JTextField ipMulticastAddressJTextField;
 	
@@ -55,8 +58,6 @@ public class GraphicInterface
 	 */
 	public GraphicInterface() 
 	{
-		row = 1;
-		devicesList = new ArrayList<>();
 		initialize();
 	}
 
@@ -74,10 +75,10 @@ public class GraphicInterface
 		frame.getContentPane().add(applicaitonPanel, BorderLayout.CENTER);
 		applicaitonPanel.setLayout(null);
 		
-		JButton addDeviceButton = new JButton("Add new device");
+		JButton addDeviceButton = new JButton("Add device");
 		
 		
-		addDeviceButton.setBounds(10, 348, 151, 23);
+		addDeviceButton.setBounds(10, 271, 151, 23);
 		applicaitonPanel.add(addDeviceButton);
 		
 		JPanel matrixPrincipalPanel = new JPanel();
@@ -93,17 +94,13 @@ public class GraphicInterface
 		matrixPanel.setLayout(new GridLayout(1, 0));
 		
 		newDeviceJTextField = new JTextField();
-		newDeviceJTextField.setBounds(10, 280, 151, 23);
+		newDeviceJTextField.setBounds(10, 237, 151, 23);
 		applicaitonPanel.add(newDeviceJTextField);
 		newDeviceJTextField.setColumns(10);
 		
-		JButton synchronizeButton = new JButton("Synchronize");
+		JButton synchronizeButton = new JButton("Measure delays");
 		synchronizeButton.setBounds(10, 133, 151, 23);
 		applicaitonPanel.add(synchronizeButton);
-		
-		JButton measureDelaysButton = new JButton("Measure delays");
-		measureDelaysButton.setBounds(10, 167, 151, 23);
-		applicaitonPanel.add(measureDelaysButton);
 		
 		JLabel iconLabel = new JLabel("");
 		iconLabel.setIcon(new ImageIcon("routerMascotev3mini mini.png"));
@@ -119,7 +116,7 @@ public class GraphicInterface
 		applicaitonPanel.add(readDataButton);
 		
 		JButton deleteDeviceButton = new JButton("Delete device");
-		deleteDeviceButton.setBounds(10, 314, 151, 23);
+		deleteDeviceButton.setBounds(10, 305, 151, 23);
 		applicaitonPanel.add(deleteDeviceButton);
 		
 		ipMulticastAddressJTextField = new JTextField();
@@ -131,17 +128,25 @@ public class GraphicInterface
 		ipMulticastAdressLabel.setBounds(262, 69, 151, 14);
 		applicaitonPanel.add(ipMulticastAdressLabel);
 		
-		JButton slaveModeButton = new JButton("Slave mode");
-		slaveModeButton.setBounds(10, 201, 151, 23);
-		applicaitonPanel.add(slaveModeButton);
-		
 		JButton showTopologyButton = new JButton("Show topology");
-		showTopologyButton.setBounds(10, 235, 151, 23);
+		showTopologyButton.setBounds(10, 167, 151, 23);
 		applicaitonPanel.add(showTopologyButton);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 269, 151, 2);
+		separator.setBounds(10, 201, 151, 2);
 		applicaitonPanel.add(separator);
+		
+		JLabel lblNewDeviceName = new JLabel("New device name");
+		lblNewDeviceName.setBounds(10, 212, 118, 14);
+		applicaitonPanel.add(lblNewDeviceName);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 339, 151, 2);
+		applicaitonPanel.add(separator_1);
+		
+		JButton btnResetPassword = new JButton("Reset password");
+		btnResetPassword.setBounds(10, 348, 151, 23);
+		applicaitonPanel.add(btnResetPassword);
 
 		
 		/** 
@@ -150,17 +155,15 @@ public class GraphicInterface
 		
 		addDeviceButton.addActionListener(new ActionListener()
 		{
-			
 			public void actionPerformed(ActionEvent e) 
 			{	
-				if(ValidationFunctions.validDeviceToInsert(devicesList, newDeviceJTextField.getText()))
+				if(ValidationFunctions.validDeviceToInsert(devices, newDeviceJTextField.getText()))
 				{
 					matrixPanel.removeAll(); 
 					
-					devicesList.add(new Device(newDeviceJTextField.getText()));
+					devices.add(new Device(newDeviceJTextField.getText()));
 					
-					row ++;
-					control.reloadMatrix(matrixPanel, row, devicesList);
+					control.openMatrixFromMeasures(matrixPanel, devices.size(), devices);
 					
 					newDeviceJTextField.setText("");
 					matrixPanel.revalidate();
@@ -175,16 +178,15 @@ public class GraphicInterface
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				if(ValidationFunctions.validDeviceToDelete(devicesList, newDeviceJTextField.getText()))
+				if(ValidationFunctions.validDeviceToDelete(devices, newDeviceJTextField.getText()))
 				{
 					matrixPanel.removeAll(); 
 					
-					devicesList.remove(ValidationFunctions.getIndexFromList(devicesList, newDeviceJTextField.getText()));
+					devices.remove(ValidationFunctions.getIndexFromList(devices, newDeviceJTextField.getText()));
 					//Remover em todos os visinhos o dispositivo
-					ControllerMatrix.removeNeighbourFromAllNeighbourList(devicesList, newDeviceJTextField.getText());
+					ControllerMatrix.removeNeighbourFromAllNeighbourList(devices, newDeviceJTextField.getText());
 					
-					row --;
-					control.reloadMatrix(matrixPanel, row, devicesList);
+					control.openMatrixFromMeasures(matrixPanel, devices.size(), devices);
 					
 					newDeviceJTextField.setText("");
 					matrixPanel.revalidate();
@@ -204,9 +206,9 @@ public class GraphicInterface
                 arquivo.showOpenDialog(null);
                 if(arquivo.getSelectedFile() != null)
                 {
-                	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, row))
+                	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, devices.size()+1))
                 	{
-                		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, row));
+                		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, devices.size()+1));
 	                	configFile.saveInFile(arquivo.getSelectedFile().getAbsolutePath());
 	                	JOptionPane.showMessageDialog(frame,"Matrix is saved in file with success!", "Success", JOptionPane.DEFAULT_OPTION);
                 	}
@@ -226,25 +228,24 @@ public class GraphicInterface
                 if(arquivo.getSelectedFile() != null)
                 {
                 	ImportMatrix impMatrix = new ImportMatrix(arquivo.getSelectedFile());
-                	devicesList = impMatrix.getListOfDevicesFromFile();
-                	row = devicesList.size()+1;
+                	devices = impMatrix.getListOfDevicesFromFile();
                 	
                 	matrixPanel.removeAll(); 
-					matrixPanel.setLayout(new GridLayout(row, row));
-					for(int i = 0; i<row; i++)
+					matrixPanel.setLayout(new GridLayout(devices.size()+1, devices.size()+1));
+					for(int i = 0; i<devices.size()+1; i++)
 						if(i==0)
 							matrixPanel.add(new JButton(""));
 						else
-							matrixPanel.add(new JButton(devicesList.get(i-1).getDeviceName()));
+							matrixPanel.add(new JButton(devices.get(i-1).getDeviceName()));
 					
-					for(int j = 1; j<row; j++)//Linha
-						for(int i = 0; i<row; i++)//Coluna
+					for(int j = 1; j<devices.size()+1; j++)//Linha
+						for(int i = 0; i<devices.size()+1; i++)//Coluna
 						{
 							if(i == 0)
-								matrixPanel.add(new JButton(devicesList.get(j-1).getDeviceName()));
+								matrixPanel.add(new JButton(devices.get(j-1).getDeviceName()));
 							else
 							{
-								String distance = String.valueOf(devicesList.get(j-1).getNeighbours().get(i-1).getDistance());
+								String distance = String.valueOf(devices.get(j-1).getNeighbours().get(i-1).getDistance());
 								matrixPanel.add(new JTextField(distance));
 							}
 						}
@@ -260,52 +261,80 @@ public class GraphicInterface
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				try 
+				String ip = ipMulticastAddressJTextField.getText();
+				if(ControllerInterface.isIP(ip))
 				{
-					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.MASTER, 8888, MyIP.getMyIP(),frame,matrixPanel));
-					ptp.start();
-					ptp.join();
-				} 
-				catch (InterruptedException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try 
+					{
+						PrintWriter fl = new PrintWriter(new File("config"));
+						fl.println(ip);
+			            fl.close();
+					} 
+					catch (FileNotFoundException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		            
+					try 
+					{
+						Thread ptp = new Thread(new MeasureDelays(ip, Type.MASTER, 8888, MyIP.getMyIP(),frame, matrixPanel));
+						ptp.start();
+						ptp.join();
+					} 
+					catch (InterruptedException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				else
+					if(ip.length()>0)
+						JOptionPane.showMessageDialog(frame,"The multicast ip address is not valid!", "Error", JOptionPane.ERROR_MESSAGE);
+					else
+					{
+						//ler do ficheiro config o endereco
+						try 
+						{
+							Scanner input = new Scanner(new File("config"));
+							if(input.hasNext())
+							{
+				            	ip = input.nextLine();
+				            	if(ControllerInterface.isIP(ip))
+				            	{
+					            	Thread ptp = new Thread(new MeasureDelays(ip, Type.MASTER, 8888, MyIP.getMyIP(),frame, matrixPanel));
+					            	ptp.start();
+					            	ptp.join();
+				            	}
+				            	else
+				            		JOptionPane.showMessageDialog(frame,"The multicast ip address readed from file is not valid!", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+							else
+								JOptionPane.showMessageDialog(frame,"The config file is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+						} 
+						catch (InterruptedException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						catch (FileNotFoundException e)
+						{
+							JOptionPane.showMessageDialog(frame,"The config file is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
 			}
 			
 			
 		});
-		
-		slaveModeButton.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
 				
-				//Fazer validações dos campos
-				try 
-				{
-					//Estes dados vao ser lidos de um ficheiro config
-					Thread ptp = new Thread(new MeasureDelays("232.232.232.232", Type.SLAVE, 8888, MyIP.getMyIP()));
-					ptp.start();
-					ptp.join();
-				} 
-				catch (InterruptedException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		
 		showTopologyButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
 
-            	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, row))
+            	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, devices.size()))
             	{
-            		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, row));
+            		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, devices.size()));
                 	configFile.saveInFile("");
             	}
             	else

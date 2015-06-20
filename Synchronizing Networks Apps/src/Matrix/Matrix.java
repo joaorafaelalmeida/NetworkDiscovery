@@ -6,7 +6,8 @@ import java.util.concurrent.Semaphore;
 
 import Entities.Device;
 
-public class Matrix {
+public class Matrix 
+{
 	public static List<Device> devices = new ArrayList<Device>();
 	public static Semaphore acess = new Semaphore(1);
 	
@@ -18,7 +19,8 @@ public class Matrix {
 			devices.add(dev);
 			acess.release();
 		} 
-		catch (InterruptedException e) {
+		catch (InterruptedException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

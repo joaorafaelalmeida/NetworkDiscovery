@@ -40,6 +40,14 @@ public class Neighbour implements Serializable
 		return tmpDistance/(distance.length);
 	}
 	
+	public double getDistanceTwoDecimal()
+	{
+		double tmpDistance = 0;
+		for (int i = 0; i < distance.length; i++) 
+			tmpDistance += distance[i];
+		return ((double)((int)(tmpDistance/(distance.length)*100)))/100;
+	}
+	
 	public void setDistance(double dist) 
 	{
 		double[] tmp = new double[distance.length+1];
@@ -52,7 +60,7 @@ public class Neighbour implements Serializable
 	@Override
 	public String toString() 
 	{
-		return "Neighbour [deviceName=" + deviceName + ", distance=" + distance
+		return "Neighbour [deviceName=" + deviceName + ", distance=" + getDistance()
 				+ "]";
 	}
 	

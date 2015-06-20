@@ -19,6 +19,16 @@ public class ThreadEscuta extends Thread
 	private int port;
 	private Device device;
 	private byte[] ipMaster;
+	private CurrentTime time;
+	
+	public ThreadEscuta(InetAddress group, int port, byte[] ipMaster, CurrentTime time)
+	{
+		this.group = group;
+		this.port = port;
+		this.ipMaster = ipMaster;
+		device = new Device(MyIP.getMyIP());
+		this.time = time;
+	}
 	
 	public ThreadEscuta(InetAddress group, int port, byte[] ipMaster)
 	{
@@ -26,18 +36,18 @@ public class ThreadEscuta extends Thread
 		this.port = port;
 		this.ipMaster = ipMaster;
 		device = new Device(MyIP.getMyIP());
-
+		this.time = null;
 	}
 	
 	@Override
 	public void run() 
 	{
 		boolean end = true;
+		int count = 0;
 		while(end)
 		{
 			//Recebe atrasos
 			MulticastSocket multicastSocket = null;
-			CurrentTime time = null;
 			try
 			{
 				multicastSocket = new MulticastSocket(port);
@@ -54,20 +64,41 @@ public class ThreadEscuta extends Thread
 	        	if(flag == Flags.SendDelays.getCode())
 	        	{
 	        		byte[] ip = new byte[ois.readInt()];
-	        		long delay = ois.readLong();
-	        		device.addNewNeighbour(new Neighbour(new String(ip), delay));
+	        		ois.read(ip);
+	        		if(!MyIP.getMyIP().equals(new String(ip)))
+	        		{
+		        		long delay = ois.readLong();
+		        		if(time != null)
+		        		{
+		        			delay = time.getServerTime() - delay;
+		        			System.out.println("SLAVE: " +  time.getServerTime() + ", delay received: "+ delay);
+		        		}
+		        		else
+		        		{
+		        			delay = System.nanoTime() - delay;
+		        			System.out.println("MASTER: " + System.nanoTime() + ", delay received: "+ delay);
+		        		}
+		        		device.addNewNeighbour(new Neighbour(new String(ip), delay));
+		        		count++;
+		        		if(count == 1)
+		        			System.out.print("Receive delays from " + new String(ip) + " ");
+		        		System.out.print(".");
+	        		}
 	        	}
 	        	
 	        	if(flag == Flags.EndDelays.getCode())
 	        	{
 	        		end = false;
+	        		System.out.println("MY DEVICE: " + device);
 	        		Protocols.SendDeviceToMaster(ipMaster, port, device);
 	        	}
 	        	
 	        	if(flag == Flags.EstablishMulticastTree.getCode())
 	        	{
+	        		count = 0;
 	        		//Ignorar
 	        	}
+	        	
 			}
 			catch (IOException e) 
 			{
