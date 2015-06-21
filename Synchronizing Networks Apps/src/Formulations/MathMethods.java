@@ -1,5 +1,6 @@
 package Formulations;
 
+
 public class MathMethods {
 	
 	public int factorial(int n) 
