@@ -47,6 +47,22 @@ public class FeasibilityPump
 		solF = new int[n2][n2][n][n];
 		solY = new int[n-2][n][n];
 	}
+	
+	public FeasibilityPump(List<Device> devicesMatrix)
+	{
+		matrixImport = new ImportMatrix(devicesMatrix);
+		n = matrixImport.getNumTotalDevices();
+		D = matrixImport.getMatrixInDoubleArray();
+		listDevices = matrixImport.getMatrixInList();
+		names = matrixImport.getDevicesNameInStringArray();
+		listRouters = new ArrayList<Routers>();
+		n1 = n-2;
+		n2 = 2*n-2;
+		c = (n-1)-Math.floorDiv(n, 2);
+		solX= new int[n-2][n2]; 
+		solF = new int[n2][n2][n][n];
+		solY = new int[n-2][n][n];
+	}
 	/*
 	public FeasibilityPump()
 	{

@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import MeasureDelays.MeasureDelays;
 import MeasureDelays.MyIP;
 import MeasureDelays.Type;
-import NTA.GraphicInterface;
+import NTA.NTAGraphicInterface;
 import UserInterface.ControllerInterface;
 import UserInterface.KeyManager;
 
@@ -30,20 +30,9 @@ public class StartMenuSNA {
 	private JTextField textField;
 	private JPasswordField passwordField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StartMenuSNA window = new StartMenuSNA();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public JFrame getFrame()
+	{
+		return frame;
 	}
 
 	/**
@@ -111,7 +100,7 @@ public class StartMenuSNA {
 		slaveButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0) 
-			{
+			{				
 				String ip = JOptionPane.showInputDialog(frame, "Introduce the multicast ip address! If you don´t introduce ip address, this will be read from configuration file!");
 				if(ip!= null)
 					if(ControllerInterface.isIP(ip))

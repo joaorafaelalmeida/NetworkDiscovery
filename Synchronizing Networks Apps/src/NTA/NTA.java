@@ -15,12 +15,12 @@ public class NTA {
 			{
 				try 
 				{
-					GraphicInterface window;
+					NTAGraphicInterface window;
 					//ISTO TALVEZ ESTEJA MAL
 					/*if(args.length>0)
 						window = new GraphicInterface(args[0]);
 					else*/
-						window = new GraphicInterface();
+						window = new NTAGraphicInterface();
 					window.getFrame().setVisible(true);
 				} 
 				catch (Exception e) 

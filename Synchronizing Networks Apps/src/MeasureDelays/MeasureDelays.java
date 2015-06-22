@@ -127,7 +127,7 @@ public class MeasureDelays implements Runnable
 		                			break;
 		                			
 		                		case SendTimeSync:
-		                			time = new CurrentTime();
+		                			
 		                			buf = new byte[256];
 		    		                msgPacket = new DatagramPacket(buf, buf.length);
 		    		                multicastSocket.receive(msgPacket);
@@ -138,6 +138,7 @@ public class MeasureDelays implements Runnable
 		    		                if(sessionIDTmp == sessionID && packID2 == packID) //Tudo ok
 		    		                {
 		    		                	long timeRead = ois.readLong();
+		    		                	time = new CurrentTime();
 		    		                	time.setServerTime(timeRead);
 		    		                	System.out.println("Time " + timeRead);
 		    		                	waitForSync = false;
@@ -149,12 +150,12 @@ public class MeasureDelays implements Runnable
 		                			break;
 		                			
 	                			default:
-	                				System.out.println("Flag inv�lida");
+	                				System.out.println("Invalid flag");
 	                		}
 	                }
 	                catch(OutOfMemoryError e)
 	                {
-	                	System.out.println("Pacote corrompido");
+	                	System.out.println("Package damaged");
 	                }
 	            }
 	            
@@ -183,14 +184,14 @@ public class MeasureDelays implements Runnable
 					          	  	waitForUnicastSync = false;
 		                			break;
 		                		default:
-		                			System.out.println("Flag inv�lida");
+		                			System.out.println("Invalid flag");
 		                			break;
 	                		}                		
 	                		
 	                }
 	                catch(OutOfMemoryError e)
 	                {
-	                	System.out.println("Pacote corrompido");
+	                	System.out.println("Package damaged");
 	                }
 	            }
 	            
@@ -352,10 +353,6 @@ public class MeasureDelays implements Runnable
 	            }
 	            System.out.println("Load matrix");
 	            
-	            //APAGAR ISTO
-	            System.out.println("\n\n\n");
-	            for(Device tmp: Matrix.Matrix.devices)
-	            	System.out.println(tmp+"\n");
 	            
 	            //Carregar matrix
 	            ControllerInterface control = new ControllerInterface();

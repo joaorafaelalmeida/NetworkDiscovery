@@ -24,8 +24,8 @@ public class SNA
 					{
 						try 
 						{
-							//StartMenuSNA window = new StartMenuSNA();
-							GraphicInterface window = new GraphicInterface();
+							StartMenuSNA window = new StartMenuSNA();
+							//GraphicInterface window = new GraphicInterface();
 							window.getFrame().setVisible(true);
 						} 
 						catch (Exception e) 

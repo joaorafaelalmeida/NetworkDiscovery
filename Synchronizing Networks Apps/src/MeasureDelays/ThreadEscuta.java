@@ -69,15 +69,10 @@ public class ThreadEscuta extends Thread
 	        		{
 		        		long delay = ois.readLong();
 		        		if(time != null)
-		        		{
 		        			delay = time.getServerTime() - delay;
-		        			System.out.println("SLAVE: " +  time.getServerTime() + ", delay received: "+ delay);
-		        		}
 		        		else
-		        		{
 		        			delay = System.nanoTime() - delay;
-		        			System.out.println("MASTER: " + System.nanoTime() + ", delay received: "+ delay);
-		        		}
+
 		        		device.addNewNeighbour(new Neighbour(new String(ip), delay));
 		        		count++;
 		        		if(count == 1)
@@ -89,7 +84,6 @@ public class ThreadEscuta extends Thread
 	        	if(flag == Flags.EndDelays.getCode())
 	        	{
 	        		end = false;
-	        		System.out.println("MY DEVICE: " + device);
 	        		Protocols.SendDeviceToMaster(ipMaster, port, device);
 	        	}
 	        	

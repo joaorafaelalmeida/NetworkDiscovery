@@ -75,6 +75,8 @@ public class Device implements Serializable
 		StringBuilder sb = new StringBuilder();
 		sb.append("Device: deviceName=");
 		sb.append(deviceName);
+		if(gateway!=null)
+			sb.append(", gateway = ").append(gateway);
 		sb.append(", neighbours=\n");
 		for(Neighbour myNeighbours: neighbours)
 		{

@@ -76,6 +76,44 @@ public class Robust
 		}
     } 
     
+    
+    public Robust(List<Device> devicesMatrix)
+    {
+		matrixImport = new ImportMatrix(devicesMatrix);
+		n = matrixImport.getNumTotalDevices();
+		D = matrixImport.getMatrixInDoubleArray();
+		B = new double [n][n];
+		for(int i = 0; i < n; i++)
+			for(int j = 0; j < n; j++)
+				B[i][j]=D[i][j]*0.15;
+		listDevices = matrixImport.getMatrixInList();
+		names = matrixImport.getDevicesNameInStringArray();
+		listRouters = new ArrayList<Routers>();
+		n1 = n-2;
+		n2 = 2*n-2;
+		c = (n-1)-Math.floorDiv(n, 2);
+		solX= new int[n-2][n2]; 
+		solF = new int[n2][n2][n][n];
+		solY = new int[n-2][n][n];
+		solV = new double[n][n];
+		
+		switch(n)
+		{
+			case 5: case 6: case 7:
+				gama=3;
+				break;
+			case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15: case 16:
+				gama=4;
+				break;
+			case 17: case 18: case 19: case 20:
+				gama=5;
+				break;
+			default:
+				gama=0;
+				break;
+		}
+    }
+    
     /*
     public Robust()
 	{

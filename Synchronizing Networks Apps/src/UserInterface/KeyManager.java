@@ -16,6 +16,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import MeasureDelays.Flags;
 
@@ -66,31 +67,54 @@ public class KeyManager
 	{
 		try 
 		{
-			InputStream is = new FileInputStream(new File("pass"));
-	        DataInputStream ois = new DataInputStream(is);
-	        
-	        //read key
-	        byte[] key = new byte[ois.readInt()];
-	        ois.read(key);
-	        
-	        //read pass
-	        byte[] pass = new byte[ois.readInt()];
-	        ois.read(pass);
-	        
-	        SecretKey dkey = new SecretKeySpec(key,"AES");
-	        Cipher cipher = Cipher.getInstance("AES");
-	        cipher.init(Cipher.DECRYPT_MODE, dkey);
-	        
-	        byte[] passwordDecifrada = cipher.doFinal(pass);
-	        
-	        if(new String(passwordDecifrada).equals(password))
-	        	return true;
+			File file = new File("pass");
+			if(file.length()>0)
+			{
+				InputStream is = new FileInputStream(file);
+		        DataInputStream ois = new DataInputStream(is);
+		        
+		        //read key
+		        byte[] key = new byte[ois.readInt()];
+		        ois.read(key);
+		        
+		        //read pass
+		        byte[] pass = new byte[ois.readInt()];
+		        ois.read(pass);
+		        
+		        SecretKey dkey = new SecretKeySpec(key,"AES");
+		        Cipher cipher = Cipher.getInstance("AES");
+		        cipher.init(Cipher.DECRYPT_MODE, dkey);
+		        
+		        byte[] passwordDecifrada = cipher.doFinal(pass);
+		        
+		        if(new String(passwordDecifrada).equals(password))
+		        	return true;
+			}
+			else
+			{
+				JPasswordField pf = new JPasswordField();
+				int okCxl = JOptionPane.showConfirmDialog(null, pf, "Confirm Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(okCxl == 0)
+				{
+					String pass = new String(pf.getPassword());
+					if(pass.equals(password))
+						return insertPasswordInFile(password);
+				}
+				return false;
+			}
 	        
 		}
 		catch(FileNotFoundException e)
 		{
-			JOptionPane.showMessageDialog(frame,"Confirm password!", "Error", JOptionPane.ERROR_MESSAGE);
-			return insertPasswordInFile(password);
+			JPasswordField pf = new JPasswordField();
+			int okCxl = JOptionPane.showConfirmDialog(null, pf, "Confirm Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(okCxl == 0)
+			{
+				String pass = new String(pf.getPassword());
+				if(pass.equals(password))
+					return insertPasswordInFile(password);
+			}
+			return false;
 		}
 		catch (Exception e) 
 		{

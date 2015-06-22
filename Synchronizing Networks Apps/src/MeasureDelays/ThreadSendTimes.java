@@ -33,7 +33,6 @@ public class ThreadSendTimes extends Thread
 		//Recebe ordem e envia atrasos
 		Interface inter = new Interface();
         ServerCom scon, sconi;                                          // canais de comunicação
-        Proxy cliProxy;                                     // thread agente prestador do serviço
 
         /* estabelecimento do servico */
         scon = new ServerCom(port);                // criação do canal de escuta e sua associação

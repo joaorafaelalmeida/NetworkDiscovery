@@ -24,6 +24,11 @@ public class ImportMatrix
 		this.devicesList = getListOfDevicesFromFile();
 	}
 	
+	public ImportMatrix(List<Device> devicesList)
+	{	
+		this.devicesList = devicesList;
+	}
+	
 	public List<Device> getListOfDevicesFromFile()
 	{
 		List<Device> tmp = new ArrayList<>();

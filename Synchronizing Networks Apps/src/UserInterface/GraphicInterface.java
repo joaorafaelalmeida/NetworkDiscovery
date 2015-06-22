@@ -2,6 +2,7 @@ package UserInterface;
 
 
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,14 +12,18 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -38,9 +43,12 @@ import MeasureDelays.MeasureDelays;
 import MeasureDelays.MyIP;
 import MeasureDelays.Type;
 import NTA.NTA;
+import NTA.NTAGraphicInterface;
+import SNA.StartMenuSNA;
 import static Matrix.Matrix.*;
 
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class GraphicInterface 
 {
@@ -147,11 +155,37 @@ public class GraphicInterface
 		JButton btnResetPassword = new JButton("Reset password");
 		btnResetPassword.setBounds(10, 348, 151, 23);
 		applicaitonPanel.add(btnResetPassword);
+		
+		JButton btnNewButton = new JButton("");
+		BufferedImage img = null;
+		try 
+		{
+		    img = ImageIO.read(new File("logout.png"));
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(20,20, Image.SCALE_SMOOTH);//lbl.getWidth(), lbl.getHeight(), Image.SCALE_SMOOTH);
+		btnNewButton.setIcon(new ImageIcon(dimg));	
+		btnNewButton.setBounds(550, 11, 23, 23);
+		applicaitonPanel.add(btnNewButton);
 
 		
 		/** 
 		 * Function for buttons
 		 * */
+		
+		btnNewButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) 
+			{	
+				StartMenuSNA home = new StartMenuSNA();
+                home.getFrame().setVisible(true);
+                frame.dispose(); 				
+			}
+		});
+		
 		
 		addDeviceButton.addActionListener(new ActionListener()
 		{
@@ -330,18 +364,30 @@ public class GraphicInterface
 		showTopologyButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
+			{				
+				NTAGraphicInterface topology = new NTAGraphicInterface(devices);
+				topology.getFrame().setVisible(true);
+                frame.dispose(); 
+			}
+		});
+		
+		btnResetPassword.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
 			{
-
-            	if(ControllerMatrix.validMatrixInJPanel(matrixPanel, devices.size()))
-            	{
-            		ExportMatrix configFile = new ExportMatrix(ControllerMatrix.getAllDataFromMatrix(matrixPanel, devices.size()));
-                	configFile.saveInFile("");
-            	}
-            	else
-					JOptionPane.showMessageDialog(frame,"Some fields in matrix don't are valid", "Error", JOptionPane.ERROR_MESSAGE);
-
-            	String[] locationMatrix  = {"SNAMatrix.txt"};
-				NTA.main(locationMatrix);
+				
+				try 
+				{
+					FileWriter file = new FileWriter(new File("pass"), false);
+					file.flush();
+					file.close();
+				} 
+				catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 	}

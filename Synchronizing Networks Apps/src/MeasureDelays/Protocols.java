@@ -188,7 +188,7 @@ public class Protocols
         }
         con.close();
         
-        time.setMachineTime(System.nanoTime());
+        //time.setMachineTime(System.nanoTime());
         time.ajustServerTime((inMessage.getTime() - time.getServerTime()));//+(endTime-startTime));
         return Math.abs(time.getServerTime() - inMessage.getTime());
 	}
