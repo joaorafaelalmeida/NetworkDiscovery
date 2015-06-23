@@ -46,6 +46,7 @@ public class FeasibilityPump
 		solX= new int[n-2][n2]; 
 		solF = new int[n2][n2][n][n];
 		solY = new int[n-2][n][n];
+		getTree();
 	}
 	
 	public FeasibilityPump(List<Device> devicesMatrix)
@@ -62,6 +63,7 @@ public class FeasibilityPump
 		solX= new int[n-2][n2]; 
 		solF = new int[n2][n2][n][n];
 		solY = new int[n-2][n][n];
+		getTree();
 	}
 	/*
 	public FeasibilityPump()

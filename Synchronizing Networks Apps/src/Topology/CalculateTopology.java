@@ -35,8 +35,22 @@ public class CalculateTopology
 			devices = calculo.getListDevices();
 			routers = calculo.getListRouter();
 		}
+		organizeDeviceList();
 	}
 
+	private void organizeDeviceList()
+	{
+		List<Device> tmp = new ArrayList<Device>();
+		for(Routers router: routers)
+			for(Device device: devices)
+				if(router.existDeviceByName(device.getDeviceName()))
+				{
+					tmp.add(device);
+					
+				}
+		devices = tmp;
+	}
+	
 	public List<Device> getDevices() 
 	{
 		return devices;

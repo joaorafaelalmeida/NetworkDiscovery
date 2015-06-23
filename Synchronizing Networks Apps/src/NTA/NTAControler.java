@@ -26,6 +26,7 @@ public class NTAControler
 	public static List<Routers> readRoutersFromFile(File file)
 	{
 		List<Routers> router = new ArrayList<Routers>();
+		devices = new ArrayList<Device>();
 		BufferedReader in;
 		try 
 		{

@@ -74,6 +74,7 @@ public class Robust
 				gama=0;
 				break;
 		}
+		getTree();
     } 
     
     
@@ -112,6 +113,8 @@ public class Robust
 				gama=0;
 				break;
 		}
+		
+		getTree();
     }
     
     /*

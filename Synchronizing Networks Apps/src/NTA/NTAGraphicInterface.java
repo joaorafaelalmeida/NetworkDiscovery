@@ -4,9 +4,12 @@ import static Matrix.Matrix.devices;
 import Entities.Device;
 import Entities.Location;
 import Entities.Routers;
+import Matrix.ControllerMatrix;
+import Matrix.ExportMatrix;
 import Matrix.ImportMatrix;
 import SNA.StartMenuSNA;
 import Topology.CalculateTopology;
+import Topology.ExportTopology;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -48,6 +52,7 @@ public class NTAGraphicInterface {
 	private int drawAreaWidth;
 	private List<Device> devices;
 	private List<Routers> routers;
+	private List<Device> devicesMatrix;
 	
 	public JFrame getFrame()
 	{
@@ -57,7 +62,9 @@ public class NTAGraphicInterface {
 	/**
 	 * Create the application.
 	 */
-	public NTAGraphicInterface() {
+	public NTAGraphicInterface() 
+	{
+		devicesMatrix = new ArrayList();
 		devices = new ArrayList();
 		routers = new ArrayList();
 		initialize();
@@ -65,12 +72,11 @@ public class NTAGraphicInterface {
 	
 	public NTAGraphicInterface(List<Device> devices) 
 	{
+		devicesMatrix = devices;
 		//Fazer algoritmos de calculo e apresentar topologia
     	CalculateTopology cal = new CalculateTopology("Exact Formulation", devices);
     	this.devices = cal.getDevices();
     	routers = cal.getRouters();
-    	for(Device tmp: this.devices)
-    		System.out.println(tmp);
 		initialize();
 	}
 
@@ -121,11 +127,40 @@ public class NTAGraphicInterface {
 		
 		drawTopology(topologyPanel);
 		
+		comboBox.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				if(devicesMatrix.size()>0)
+				{
+					String algoritmo = String.valueOf(comboBox.getSelectedItem());
+
+	            	//Aplicar algoritmo selecionado
+	            	CalculateTopology cal = new CalculateTopology(algoritmo, devicesMatrix);
+	            	devices = cal.getDevices();
+	            	routers = cal.getRouters();
+	            	drawTopology(topologyPanel);
+				}
+				else
+					JOptionPane.showMessageDialog(frame,"The distance matrix has not loaded!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		
 		btnExportTopologyTo.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				JFileChooser arquivo = new JFileChooser();  
+                arquivo.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                arquivo.setDialogTitle("Select a location to save your file with existent data");
+                arquivo.showOpenDialog(null);
+                if(arquivo.getSelectedFile() != null)
+                {
+                	ExportTopology configFile = new ExportTopology(routers);
+                	configFile.saveInFile(arquivo.getSelectedFile().getAbsolutePath());
+                	JOptionPane.showMessageDialog(frame,"Topology is saved in file with success!", "Success", JOptionPane.DEFAULT_OPTION);
+                }
 			}
 		});
 		
@@ -139,7 +174,7 @@ public class NTAGraphicInterface {
                 if(arquivo.getSelectedFile() != null)
                 {
                 	ImportMatrix impMatrix = new ImportMatrix(arquivo.getSelectedFile());
-                	List<Device> devicesMatrix = impMatrix.getListOfDevicesFromFile();
+                	devicesMatrix = impMatrix.getListOfDevicesFromFile();
                 	String algoritmo = String.valueOf(comboBox.getSelectedItem());
                 	
                 	//Aplicar algoritmo selecionado
@@ -165,9 +200,10 @@ public class NTAGraphicInterface {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
+				
 				//Importar do ficheiro
 				JFileChooser arquivo = new JFileChooser();  
-		        arquivo.setDialogTitle("Select a topology result to be readed");
+		        arquivo.setDialogTitle("Select a topology result to be readed from file");
 		        arquivo.showOpenDialog(null);
 		        if(arquivo.getSelectedFile() != null)
 		        {
@@ -184,6 +220,8 @@ public class NTAGraphicInterface {
 	
 	private void drawTopology(TopologyPanel topologyPanel)
 	{
+		topologyPanel.clear();
+		
 		//Desenhar Topologia
 		if(!devices.isEmpty())
 		{
@@ -291,6 +329,11 @@ public class NTAGraphicInterface {
 	
 	private class TopologyPanel extends JPanel
 	{
+		public void clear()
+		{
+			super.removeAll();
+		}
+		
 		public TopologyPanel () 
 		  {
 		    this.setBackground (Color.cyan);

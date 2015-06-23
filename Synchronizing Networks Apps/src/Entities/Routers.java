@@ -43,6 +43,15 @@ public class Routers implements Serializable
 		
 	}
 	
+	public boolean existDeviceByName(String deviceIP)
+	{
+		for (Device device: connectedDevices) 
+			if(device.getDeviceName().equals(deviceIP))
+				return true;
+		return false;
+		
+	}
+	
 	public void setLocation(Location l)
 	{
 		loc = l;

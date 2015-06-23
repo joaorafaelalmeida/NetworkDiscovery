@@ -44,6 +44,7 @@ public class ExactFormulation
 		solX= new int[n-2][n2]; 
 		solF = new int[n2][n2][n][n];
 		solY = new int[n-2][n][n];
+		getTree();
 	}
 	
 	public ExactFormulation(List<Device> devicesMatrix)
@@ -60,6 +61,8 @@ public class ExactFormulation
 		solX= new int[n-2][n2]; 
 		solF = new int[n2][n2][n][n];
 		solY = new int[n-2][n][n];
+		getTree();
+		
 	}
 	
 	/*
